@@ -1,0 +1,244 @@
+@use 'sass:color';
+@use '../../../../../styles/variables' as *;
+@use '../../../../../styles/mixins' as *;
+
+.processing-container {
+  min-height: 100vh;
+  @include flex-center;
+  padding: $spacing-lg;
+  background-color: $bg-light;
+}
+
+.processing-content {
+  max-width: 700px;
+  width: 100%;
+  background-color: $bg-primary;
+  border-radius: $border-radius-xl;
+  padding: $spacing-xxl;
+  box-shadow: $shadow-lg;
+  
+  @include respond-to('xs') {
+    padding: $spacing-lg;
+  }
+}
+
+.logo-header {
+  text-align: center;
+  margin-bottom: $spacing-lg;
+  
+  .logo {
+    max-width: 150px;
+    height: auto;
+  }
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background-color: $bg-secondary;
+  border-radius: $border-radius-full;
+  margin-bottom: $spacing-lg;
+  overflow: hidden;
+  
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transition: width $transition-base;
+  }
+}
+
+.step-indicator {
+  text-align: center;
+  color: $text-secondary;
+  font-size: $font-size-sm;
+  margin-bottom: $spacing-xl;
+}
+
+.processing-header {
+  text-align: center;
+  margin-bottom: $spacing-xxl;
+  
+  h1 {
+    color: $text-primary;
+    margin-bottom: $spacing-sm;
+  }
+  
+  .subtitle {
+    color: $text-secondary;
+    font-size: $font-size-base;
+  }
+}
+
+.steps-container {
+  margin: $spacing-xxl 0;
+  
+  .step-item {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+    padding: $spacing-md;
+    border-radius: $border-radius-md;
+    margin-bottom: $spacing-md;
+    transition: all $transition-base;
+    
+    &.pending {
+      opacity: 0.4;
+      
+      .step-icon {
+        .icon-pending {
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+          background-color: $bg-secondary;
+        }
+      }
+      
+      .step-label {
+        color: $text-secondary;
+      }
+    }
+    
+    &.processing {
+      background-color: rgba(#667eea, 0.1);
+      border-left: 4px solid #667eea;
+      
+      .step-icon {
+        .icon-processing {
+          position: relative;
+          width: 24px;
+          height: 24px;
+          
+          .spinner {
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(#667eea, 0.3);
+            border-top-color: #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+          }
+        }
+      }
+      
+      .step-label {
+        color: $text-primary;
+        font-weight: $font-weight-semibold;
+      }
+    }
+    
+    &.completed {
+      .step-icon {
+        svg {
+          stroke: #10b981;
+        }
+      }
+      
+      .step-label {
+        color: $text-primary;
+        text-decoration: line-through;
+        opacity: 0.7;
+      }
+    }
+  }
+}
+
+.processing-animation {
+  position: relative;
+  height: 100px;
+  margin: $spacing-xxl 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-sm;
+  
+  .wave {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50%;
+    opacity: 0.6;
+    animation: pulse 2s ease-in-out infinite;
+    
+    &.wave-2 {
+      animation-delay: 0.3s;
+    }
+    
+    &.wave-3 {
+      animation-delay: 0.6s;
+    }
+  }
+}
+
+.progress-indicator {
+  display: flex;
+  justify-content: center;
+  margin: $spacing-xxl 0;
+  
+  .progress-circle {
+    position: relative;
+    
+    .progress-ring {
+      transform: rotate(-90deg);
+      
+      .progress-ring-fill {
+        transition: stroke-dashoffset 0.5s ease;
+      }
+    }
+    
+    .progress-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: $font-size-2xl;
+      font-weight: $font-weight-bold;
+      color: $text-primary;
+    }
+  }
+}
+
+.success-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-md;
+  background-color: rgba(#10b981, 0.1);
+  padding: $spacing-lg;
+  border-radius: $border-radius-md;
+  border: 2px solid rgba(#10b981, 0.3);
+  animation: fadeIn 0.5s ease-in;
+  
+  p {
+    color: #10b981;
+    font-weight: $font-weight-semibold;
+    font-size: $font-size-lg;
+    margin: 0;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.3;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

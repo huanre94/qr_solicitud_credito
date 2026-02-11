@@ -1,0 +1,87 @@
+<div class="offer-container">
+  <div class="offer-content">
+    <div class="logo-header">
+      <img src="assets/logo_resuelve.png" alt="Resuelve Logo" class="logo" />
+    </div>
+
+    <app-progress-indicator [currentStep]="4" [totalSteps]="6"></app-progress-indicator>
+
+    <div class="offer-header">
+      <div class="success-icon">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h1>¡Tu línea de crédito está lista!</h1>
+      <p class="subtitle">Has sido aprobado para la siguiente línea de crédito</p>
+    </div>
+
+    <div class="offer-card">
+      <div class="card-header">
+        <span class="card-label">Monto aprobado</span>
+      </div>
+      <div class="card-amount">
+        {{ formatCurrency(creditOffer?.approvedAmount) }}
+      </div>
+      
+      <div class="card-details">
+        <div class="detail-item">
+          <span class="detail-label">Cuota estimada mensual</span>
+          <span class="detail-value">{{ formatCurrency(creditOffer?.monthlyPayment) }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Tasa de interés</span>
+          <span class="detail-value">{{ creditOffer?.interestRate }}% mensual</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Plazo</span>
+          <span class="detail-value">{{ creditOffer?.term }} meses</span>
+        </div>
+      </div>
+
+      <div class="usage-info">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13 16H12V12H11M12 8H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Uso: Múltiples comercios afiliados</span>
+      </div>
+    </div>
+
+    <div class="conditions-section">
+      <button class="conditions-toggle" (click)="toggleConditions()">
+        <span>Ver condiciones</span>
+        <svg [class.rotated]="showConditions" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M19 9L12 16L5 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <div class="conditions-content" [class.expanded]="showConditions">
+        <div class="condition-item">
+          <h4>Tasa de Interés</h4>
+          <p>Tasa de interés mensual del {{ creditOffer?.interestRate }}% ({{ (creditOffer?.interestRate || 0) * 12 }}% E.A.)</p>
+        </div>
+        <div class="condition-item">
+          <h4>Forma de Pago</h4>
+          <p>Cuotas mensuales fijas durante {{ creditOffer?.term }} meses</p>
+        </div>
+        <div class="condition-item">
+          <h4>Uso del Crédito</h4>
+          <p>Puedes usar tu línea de crédito en cualquier comercio afiliado a nuestra red</p>
+        </div>
+        <div class="condition-item">
+          <h4>Sin Penalidades</h4>
+          <p>No hay cargos por pago anticipado o prepago total</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn-primary" (click)="acceptOffer()">
+        Aceptar línea de crédito
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>

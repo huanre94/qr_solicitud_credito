@@ -1,0 +1,147 @@
+@use 'sass:color';
+@use '../../../../../styles/variables' as *;
+@use '../../../../../styles/mixins' as *;
+
+.entry-container {
+  min-height: 100vh;
+  @include flex-center;
+  padding: $spacing-lg;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  
+  @include respond-to('xs') {
+    padding: $spacing-md;
+  }
+}
+
+.entry-content {
+  max-width: 600px;
+  width: 100%;
+  background-color: $bg-primary;
+  border-radius: $border-radius-xl;
+  padding: $spacing-xxl;
+  box-shadow: $shadow-xl;
+  
+  @include respond-to('xs') {
+    padding: $spacing-lg;
+  }
+}
+
+.logo-header {
+  text-align: center;
+  margin-bottom: $spacing-xl;
+  
+  .logo {
+    max-width: 180px;
+    height: auto;
+    margin: 0 auto;
+    
+    @include respond-to('xs') {
+      max-width: 140px;
+    }
+  }
+}
+
+.hero-section {
+  text-align: center;
+  margin-bottom: $spacing-xxl;
+  
+  h1 {
+    color: $text-primary;
+    margin-bottom: $spacing-xl;
+    font-size: $font-size-3xl;
+    font-weight: $font-weight-bold;
+    
+    @include respond-to('xs') {
+      font-size: $font-size-2xl;
+    }
+  }
+}
+
+.benefits-list {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+  text-align: left;
+  margin-top: $spacing-xl;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-md;
+  padding: $spacing-md;
+  background-color: $bg-light;
+  border-radius: $border-radius-md;
+  transition: all $transition-base;
+  
+  &:hover {
+    background-color: $bg-secondary;
+    transform: translateX(4px);
+  }
+  
+  .benefit-icon {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    @include flex-center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: $border-radius-md;
+    color: $text-white;
+    
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+  
+  .benefit-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+    h3 {
+      color: $text-primary;
+      font-size: $font-size-lg;
+      font-weight: $font-weight-semibold;
+      margin: 0 0 $spacing-xs 0;
+      line-height: 1.3;
+    }
+    
+    p {
+      color: $text-secondary;
+      font-size: $font-size-sm;
+      margin: 0;
+      line-height: 1.4;
+    }
+  }
+}
+
+.cta-section {
+  text-align: center;
+  
+  .btn-primary {
+    @include button-primary;
+    width: 100%;
+    font-size: $font-size-lg;
+    padding: $spacing-lg;
+    gap: $spacing-sm;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    
+    &:hover {
+      background: linear-gradient(135deg, color.adjust(#667eea, $lightness: -10%) 0%, color.adjust(#764ba2, $lightness: -10%) 100%);
+      transform: translateY(-2px);
+    }
+    
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+  
+  .duration-text {
+    margin-top: $spacing-md;
+    color: $text-light;
+    font-size: $font-size-sm;
+  }
+}

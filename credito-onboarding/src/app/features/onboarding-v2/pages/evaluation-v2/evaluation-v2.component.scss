@@ -1,0 +1,165 @@
+@use 'sass:color';
+@use '../../../../../styles/variables' as *;
+@use '../../../../../styles/mixins' as *;
+
+.evaluation-container {
+  min-height: 100vh;
+  @include flex-center;
+  padding: $spacing-lg;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  
+  @include respond-to('xs') {
+    padding: $spacing-md;
+  }
+}
+
+.evaluation-content {
+  max-width: 600px;
+  width: 100%;
+  background-color: $bg-primary;
+  border-radius: $border-radius-xl;
+  padding: $spacing-xxl;
+  box-shadow: $shadow-xl;
+  
+  @include respond-to('xs') {
+    padding: $spacing-lg;
+  }
+}
+
+.logo-header {
+  text-align: center;
+  margin-bottom: $spacing-lg;
+  
+  .logo {
+    max-width: 150px;
+    height: auto;
+    margin: 0 auto;
+    
+    @include respond-to('xs') {
+      max-width: 120px;
+    }
+  }
+}
+
+.evaluation-section {
+  text-align: center;
+  
+  h1 {
+    color: $text-primary;
+    margin-bottom: $spacing-xxl;
+    font-size: $font-size-2xl;
+    
+    @include respond-to('xs') {
+      font-size: $font-size-xl;
+    }
+  }
+}
+
+.loader-wrapper {
+  @include flex-center;
+  margin-bottom: $spacing-xxl;
+}
+
+.loader {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  
+  .spinner {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 4px solid $bg-secondary;
+    border-top-color: #667eea;
+    border-right-color: #764ba2;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.messages-container {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+  margin-bottom: $spacing-xl;
+  text-align: left;
+}
+
+.message-item {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  padding: $spacing-md;
+  border-radius: $border-radius-md;
+  transition: all $transition-base;
+  
+  &.active {
+    background-color: rgba(#667eea, 0.1);
+  }
+  
+  &.completed {
+    opacity: 0.6;
+  }
+  
+  .message-icon {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    @include flex-center;
+    border-radius: $border-radius-full;
+    
+    svg {
+      color: $success-color;
+    }
+  }
+  
+  .dot-pulse {
+    width: 12px;
+    height: 12px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50%;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+  
+  .dot-pending {
+    width: 12px;
+    height: 12px;
+    background-color: $border-color;
+    border-radius: 50%;
+  }
+  
+  span {
+    flex: 1;
+    color: $text-secondary;
+    font-size: $font-size-base;
+    transition: all $transition-base;
+    
+    &.highlight {
+      color: $text-primary;
+      font-weight: $font-weight-semibold;
+    }
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
+}
+
+.wait-message {
+  color: $text-light;
+  font-size: $font-size-sm;
+  margin: 0;
+}

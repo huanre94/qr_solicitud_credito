@@ -1,0 +1,117 @@
+<div class="identity-container">
+  <div class="identity-content">
+    <div class="logo-header">
+      <img src="assets/logo_resuelve.png" alt="Resuelve Logo" class="logo" />
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress-fill" style="width: 14%"></div>
+    </div>
+
+    <div class="step-indicator">
+      <span class="step-text">Paso 1 de 7</span>
+    </div>
+
+    <div class="form-header">
+      <h1>Verificación de Identidad</h1>
+      <p class="subtitle">Necesitamos validar tu información</p>
+    </div>
+
+    <form [formGroup]="identityForm" (ngSubmit)="onSubmit()" class="identity-form">
+      <!-- Cédula -->
+      <div class="form-group">
+        <label for="cedula">Número de Cédula <span class="required">*</span></label>
+        <input 
+          type="text" 
+          id="cedula" 
+          formControlName="cedula"
+          placeholder="Ej: 1234567890"
+          [class.error]="cedula?.invalid && cedula?.touched"
+        />
+        @if (cedula?.invalid && cedula?.touched) {
+          <div class="error-message">
+            @if (cedula?.errors?.['required']) {
+              <span>La cédula es requerida</span>
+            }
+            @if (cedula?.errors?.['pattern']) {
+              <span>La cédula debe tener entre 6 y 10 dígitos</span>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Autorizaciones -->
+      <div class="authorizations-section">
+        <h3>Autorizaciones</h3>
+        
+        <label class="checkbox-container">
+          <input type="checkbox" formControlName="autorizacionBuro">
+          <span class="checkmark"></span>
+          <span class="checkbox-label">
+            Autorizo la consulta de mi información en buró de crédito <span class="required">*</span>
+          </span>
+        </label>
+
+        <label class="checkbox-container">
+          <input type="checkbox" formControlName="autorizacionDatos">
+          <span class="checkmark"></span>
+          <span class="checkbox-label">
+            Autorizo el tratamiento de mis datos personales según la <a href="#" target="_blank">política de privacidad</a> <span class="required">*</span>
+          </span>
+        </label>
+
+        @if ((autorizacionBuro?.invalid || autorizacionDatos?.invalid) && (autorizacionBuro?.touched || autorizacionDatos?.touched)) {
+          <div class="error-message">
+            <span>Debes aceptar ambas autorizaciones para continuar</span>
+          </div>
+        }
+      </div>
+
+      <!-- CAPTCHA -->
+      <div class="captcha-section">
+        <h3>Verificación de seguridad</h3>
+        <div class="captcha-box">
+          <div class="captcha-challenge">
+            <span class="captcha-text">{{ captchaNum1 }} + {{ captchaNum2 }} = ?</span>
+          </div>
+          <input 
+            type="text" 
+            formControlName="captcha"
+            placeholder="Ingresa el resultado"
+            (input)="verifyCaptcha()"
+            [class.error]="captcha?.invalid && captcha?.touched && !captchaVerified()"
+            [class.success]="captchaVerified()"
+          />
+        </div>
+        @if (captchaVerified()) {
+          <div class="success-message">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            CAPTCHA verificado
+          </div>
+        }
+      </div>
+
+      <!-- Acciones -->
+      <div class="form-actions">
+        <button type="button" class="btn-secondary" (click)="goBack()" [disabled]="isProcessing()">
+          Volver
+        </button>
+        <button type="submit" class="btn-primary" [disabled]="identityForm.invalid || !captchaVerified() || isProcessing()">
+          @if (!isProcessing()) {
+            <span>Continuar</span>
+          } @else {
+            <span>
+              <svg class="spinner" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="31.4" stroke-dashoffset="10" opacity="0.3"/>
+              </svg>
+              Verificando...
+            </span>
+          }
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

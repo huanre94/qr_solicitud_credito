@@ -1,0 +1,196 @@
+@use 'sass:color';
+@use '../../../../../styles/variables' as *;
+@use '../../../../../styles/mixins' as *;
+
+.contact-info-container {
+  min-height: 100vh;
+  @include flex-center;
+  padding: $spacing-lg;
+  background-color: $bg-light;
+  
+  @include respond-to('xs') {
+    padding: $spacing-md;
+  }
+}
+
+.contact-info-content {
+  max-width: 700px;
+  width: 100%;
+  background-color: $bg-primary;
+  border-radius: $border-radius-xl;
+  padding: $spacing-xxl;
+  box-shadow: $shadow-lg;
+  
+  @include respond-to('xs') {
+    padding: $spacing-lg;
+  }
+}
+
+.logo-header {
+  text-align: center;
+  margin-bottom: $spacing-lg;
+  
+  .logo {
+    max-width: 150px;
+    height: auto;
+    margin: 0 auto;
+    
+    @include respond-to('xs') {
+      max-width: 120px;
+    }
+  }
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background-color: $bg-secondary;
+  border-radius: $border-radius-full;
+  margin-bottom: $spacing-lg;
+  overflow: hidden;
+  
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transition: width $transition-base;
+  }
+}
+
+.step-indicator {
+  text-align: center;
+  margin-bottom: $spacing-md;
+  
+  .step-text {
+    color: $text-secondary;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+  }
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: $spacing-xl;
+  
+  h1 {
+    color: $text-primary;
+    margin-bottom: $spacing-sm;
+    
+    @include respond-to('xs') {
+      font-size: $font-size-xl;
+    }
+  }
+  
+  .subtitle {
+    color: $text-secondary;
+    font-size: $font-size-base;
+    margin-bottom: 0;
+  }
+}
+
+.contact-form {
+  .form-group {
+    margin-bottom: $spacing-lg;
+    
+    label {
+      display: block;
+      margin-bottom: $spacing-sm;
+      color: $text-primary;
+      font-weight: $font-weight-medium;
+      font-size: $font-size-base;
+      
+      .required {
+        color: $error-color;
+      }
+    }
+    
+    input {
+      @include input-base;
+      
+      &.error {
+        border-color: $error-color;
+      }
+    }
+    
+    .error-message {
+      margin-top: $spacing-sm;
+      color: $error-color;
+      font-size: $font-size-sm;
+      display: flex;
+      align-items: center;
+      gap: $spacing-xs;
+      
+      &::before {
+        content: '⚠';
+        font-size: $font-size-base;
+      }
+    }
+  }
+  
+  .form-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-lg;
+    
+    @include respond-to('xs') {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+  }
+}
+
+.form-actions {
+  display: flex;
+  gap: $spacing-md;
+  margin-top: $spacing-xl;
+  
+  @include respond-to('xs') {
+    flex-direction: column-reverse;
+  }
+  
+  button {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-sm;
+    padding: $spacing-md $spacing-lg;
+    border-radius: $border-radius-md;
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    transition: all $transition-base;
+    border: none;
+    outline: none;
+    
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+    
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+  
+  .btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: $text-white;
+    
+    &:hover:not(:disabled) {
+      background: linear-gradient(135deg, color.adjust(#667eea, $lightness: -10%) 0%, color.adjust(#764ba2, $lightness: -10%) 100%);
+      transform: translateY(-2px);
+      box-shadow: $shadow-md;
+    }
+  }
+  
+  .btn-secondary {
+    background-color: transparent;
+    color: #667eea;
+    border: 2px solid #667eea;
+    
+    &:hover:not(:disabled) {
+      background-color: rgba(#667eea, 0.1);
+    }
+  }
+}

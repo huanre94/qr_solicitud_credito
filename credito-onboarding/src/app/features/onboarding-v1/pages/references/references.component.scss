@@ -1,0 +1,211 @@
+@use 'sass:color';
+@use '../../../../../styles/variables' as *;
+@use '../../../../../styles/mixins' as *;
+
+.references-container {
+  min-height: 100vh;
+  @include flex-center;
+  padding: $spacing-lg;
+  background-color: $bg-light;
+}
+
+.references-content {
+  max-width: 800px;
+  width: 100%;
+  background-color: $bg-primary;
+  border-radius: $border-radius-xl;
+  padding: $spacing-xxl;
+  box-shadow: $shadow-lg;
+  
+  @include respond-to('xs') {
+    padding: $spacing-lg;
+  }
+}
+
+.logo-header {
+  text-align: center;
+  margin-bottom: $spacing-lg;
+  
+  .logo {
+    max-width: 150px;
+    height: auto;
+  }
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background-color: $bg-secondary;
+  border-radius: $border-radius-full;
+  margin-bottom: $spacing-lg;
+  overflow: hidden;
+  
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transition: width $transition-base;
+  }
+}
+
+.step-indicator {
+  text-align: center;
+  color: $text-secondary;
+  font-size: $font-size-sm;
+  margin-bottom: $spacing-xl;
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: $spacing-xl;
+  
+  h1 {
+    color: $text-primary;
+    margin-bottom: $spacing-sm;
+  }
+  
+  .subtitle {
+    color: $text-secondary;
+    font-size: $font-size-base;
+  }
+}
+
+.references-form {
+  .reference-card {
+    background-color: $bg-secondary;
+    border-radius: $border-radius-lg;
+    padding: $spacing-xl;
+    margin-bottom: $spacing-xl;
+    border-left: 4px solid #667eea;
+    
+    .reference-number {
+      color: $text-primary;
+      font-size: $font-size-lg;
+      margin-bottom: $spacing-lg;
+      display: flex;
+      align-items: center;
+      gap: $spacing-sm;
+      
+      &::before {
+        content: '';
+        width: 8px;
+        height: 8px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 50%;
+      }
+    }
+  }
+  
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-md;
+    
+    @include respond-to('xs') {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  .form-group {
+    margin-bottom: $spacing-lg;
+    
+    label {
+      display: block;
+      color: $text-primary;
+      font-weight: $font-weight-medium;
+      margin-bottom: $spacing-sm;
+      
+      .required {
+        color: $error-color;
+      }
+    }
+    
+    input, select {
+      @include input-base;
+      width: 100%;
+      
+      &.error {
+        border-color: $error-color;
+        background-color: rgba($error-color, 0.05);
+      }
+    }
+    
+    select {
+      cursor: pointer;
+    }
+    
+    .error-message {
+      color: $error-color;
+      font-size: $font-size-sm;
+      margin-top: $spacing-xs;
+    }
+  }
+}
+
+.info-note {
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-md;
+  background-color: rgba(#667eea, 0.1);
+  border-left: 4px solid #667eea;
+  padding: $spacing-md;
+  border-radius: $border-radius-md;
+  margin-bottom: $spacing-xl;
+  
+  svg {
+    flex-shrink: 0;
+    color: #667eea;
+    margin-top: 2px;
+  }
+  
+  p {
+    color: $text-primary;
+    font-size: $font-size-sm;
+    margin: 0;
+    line-height: 1.5;
+  }
+}
+
+.form-actions {
+  display: flex;
+  gap: $spacing-md;
+  margin-top: $spacing-xl;
+  
+  @include respond-to('xs') {
+    flex-direction: column;
+  }
+  
+  button {
+    flex: 1;
+    padding: $spacing-md;
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    border-radius: $border-radius-md;
+    cursor: pointer;
+    transition: all $transition-base;
+    
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+  
+  .btn-secondary {
+    background-color: transparent;
+    border: 2px solid $border-color;
+    color: $text-primary;
+    
+    &:hover:not(:disabled) {
+      border-color: #667eea;
+      color: #667eea;
+    }
+  }
+  
+  .btn-primary {
+    @include button-primary;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    
+    &:hover:not(:disabled) {
+      background: linear-gradient(135deg, color.adjust(#667eea, $lightness: -10%) 0%, color.adjust(#764ba2, $lightness: -10%) 100%);
+    }
+  }
+}

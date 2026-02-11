@@ -1,0 +1,37 @@
+<div class="evaluation-container">
+  <div class="evaluation-content">
+    <div class="logo-header">
+      <img src="assets/logo_resuelve.png" alt="Resuelve Logo" class="logo" />
+    </div>
+
+    <app-progress-indicator [currentStep]="3" [totalSteps]="6"></app-progress-indicator>
+
+    <div class="evaluation-section">
+      <h1>Estamos evaluando tu solicitud</h1>
+      
+      <div class="loader-wrapper">
+        <div class="loader">
+          <div class="spinner"></div>
+        </div>
+      </div>
+
+      <div class="messages-container">
+        <div class="message-item" 
+             *ngFor="let message of messages; let i = index"
+             [class.active]="i === currentMessage"
+             [class.completed]="i < currentMessage">
+          <div class="message-icon">
+            <svg *ngIf="i < currentMessage" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <div *ngIf="i === currentMessage" class="dot-pulse"></div>
+            <div *ngIf="i > currentMessage" class="dot-pending"></div>
+          </div>
+          <span [class.highlight]="i === currentMessage">{{ message }}</span>
+        </div>
+      </div>
+
+      <p class="wait-message">Este proceso puede tardar unos segundos...</p>
+    </div>
+  </div>
+</div>

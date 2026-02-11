@@ -1,0 +1,83 @@
+// Colores principales
+$primary-color: #4A90E2;
+$secondary-color: #7ED321;
+$accent-color: #F5A623;
+$error-color: #D0021B;
+$success-color: #7ED321;
+$warning-color: #F8E71C;
+
+// Colores de texto
+$text-primary: #333333;
+$text-secondary: #666666;
+$text-light: #999999;
+$text-white: #FFFFFF;
+
+// Colores de fondo
+$bg-primary: #FFFFFF;
+$bg-secondary: #F7F7F7;
+$bg-light: #FAFAFA;
+$bg-dark: #2C3E50;
+
+// Colores de borde
+$border-color: #E0E0E0;
+$border-light: #F0F0F0;
+$border-dark: #CCCCCC;
+
+// Espaciado
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
+$spacing-xxl: 48px;
+
+// Bordes redondeados
+$border-radius-sm: 4px;
+$border-radius-md: 8px;
+$border-radius-lg: 12px;
+$border-radius-xl: 16px;
+$border-radius-full: 50%;
+
+// Sombras
+$shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+$shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.15);
+$shadow-xl: 0 12px 24px rgba(0, 0, 0, 0.2);
+
+// Tipografía
+$font-family-base: 'Roboto', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+$font-size-xs: 12px;
+$font-size-sm: 14px;
+$font-size-base: 16px;
+$font-size-lg: 18px;
+$font-size-xl: 20px;
+$font-size-2xl: 24px;
+$font-size-3xl: 32px;
+
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+// Breakpoints
+$breakpoint-xs: 320px;
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+$breakpoint-xxl: 1400px;
+
+// Transiciones
+$transition-fast: 0.15s ease-in-out;
+$transition-base: 0.3s ease-in-out;
+$transition-slow: 0.5s ease-in-out;
+
+// Z-index
+$z-index-dropdown: 1000;
+$z-index-sticky: 1020;
+$z-index-fixed: 1030;
+$z-index-modal-backdrop: 1040;
+$z-index-modal: 1050;
+$z-index-popover: 1060;
+$z-index-tooltip: 1070;

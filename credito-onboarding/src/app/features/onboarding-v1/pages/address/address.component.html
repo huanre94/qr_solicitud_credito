@@ -1,0 +1,151 @@
+<div class="address-container">
+  <div class="address-content">
+    <div class="logo-header">
+      <img src="assets/logo_resuelve.png" alt="Resuelve Logo" class="logo" />
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress-fill" style="width: 29%"></div>
+    </div>
+
+    <div class="step-indicator">
+      <span class="step-text">Paso 2 de 7</span>
+    </div>
+
+    <div class="form-header">
+      <h1>Dirección de Residencia</h1>
+      <p class="subtitle">Necesitamos saber dónde vives</p>
+    </div>
+
+    <form [formGroup]="addressForm" (ngSubmit)="onSubmit()" class="address-form">
+      <div class="form-row">
+        <div class="form-group full-width">
+          <label for="calle">Calle <span class="required">*</span></label>
+          <input 
+            type="text" 
+            id="calle" 
+            formControlName="calle"
+            placeholder="Ej: Av. Principal"
+            [class.error]="calle?.invalid && calle?.touched"
+          />
+          @if (calle?.invalid && calle?.touched) {
+            <div class="error-message">
+              @if (calle?.errors?.['required']) {
+                <span>La calle es requerida</span>
+              }
+              @if (calle?.errors?.['minlength']) {
+                <span>Mínimo 5 caracteres</span>
+              }
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="numeroCasa">Número <span class="required">*</span></label>
+          <input 
+            type="text" 
+            id="numeroCasa" 
+            formControlName="numeroCasa"
+            placeholder="Ej: 123"
+            [class.error]="numeroCasa?.invalid && numeroCasa?.touched"
+          />
+        </div>
+        <div class="form-group">
+          <label for="colonia">Colonia/Barrio <span class="required">*</span></label>
+          <input 
+            type="text" 
+            id="colonia" 
+            formControlName="colonia"
+            placeholder="Ej: Centro"
+            [class.error]="colonia?.invalid && colonia?.touched"
+          />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="ciudad">Ciudad <span class="required">*</span></label>
+          <input 
+            type="text" 
+            id="ciudad" 
+            formControlName="ciudad"
+            placeholder="Ej: Quito"
+            [class.error]="ciudad?.invalid && ciudad?.touched"
+          />
+        </div>
+        <div class="form-group">
+          <label for="estado">Provincia/Estado <span class="required">*</span></label>
+          <select 
+            id="estado" 
+            formControlName="estado"
+            [class.error]="estado?.invalid && estado?.touched">
+            <option value="">Selecciona...</option>
+            <option value="pichincha">Pichincha</option>
+            <option value="guayas">Guayas</option>
+            <option value="azuay">Azuay</option>
+            <option value="manabi">Manabí</option>
+            <option value="tungurahua">Tungurahua</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="codigoPostal">Código Postal <span class="required">*</span></label>
+          <input 
+            type="text" 
+            id="codigoPostal" 
+            formControlName="codigoPostal"
+            placeholder="Ej: 170101"
+            [class.error]="codigoPostal?.invalid && codigoPostal?.touched"
+          />
+          @if (codigoPostal?.invalid && codigoPostal?.touched) {
+            <div class="error-message">
+              @if (codigoPostal?.errors?.['pattern']) {
+                <span>Debe ser un código de 5 dígitos</span>
+              }
+            </div>
+          }
+        </div>
+        <div class="form-group">
+          <label for="tiempoResidencia">Tiempo en esta dirección <span class="required">*</span></label>
+          <select 
+            id="tiempoResidencia" 
+            formControlName="tiempoResidencia"
+            [class.error]="tiempoResidencia?.invalid && tiempoResidencia?.touched">
+            <option value="">Selecciona...</option>
+            <option value="0-1">Menos de 1 año</option>
+            <option value="1-3">1 a 3 años</option>
+            <option value="3-5">3 a 5 años</option>
+            <option value="5+">Más de 5 años</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="tipoVivienda">Tipo de Vivienda <span class="required">*</span></label>
+        <select 
+          id="tipoVivienda" 
+          formControlName="tipoVivienda"
+          [class.error]="tipoVivienda?.invalid && tipoVivienda?.touched">
+          <option value="">Selecciona...</option>
+          <option value="propia">Propia</option>
+          <option value="rentada">Rentada</option>
+          <option value="familiar">Familiar</option>
+          <option value="hipoteca">Con hipoteca</option>
+        </select>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn-secondary" (click)="goBack()">
+          Volver
+        </button>
+        <button type="submit" class="btn-primary" [disabled]="addressForm.invalid">
+          Continuar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

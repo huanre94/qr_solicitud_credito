@@ -1,0 +1,95 @@
+<div class="processing-container">
+  <div class="processing-content">
+    <div class="logo-header">
+      <img src="assets/logo_resuelve.png" alt="Resuelve Logo" class="logo" />
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress-fill" [style.width]="'86%'"></div>
+    </div>
+
+    <div class="step-indicator">
+      <span class="step-text">Paso 6 de 7</span>
+    </div>
+
+    <div class="processing-header">
+      <h1>Procesando tu Solicitud</h1>
+      <p class="subtitle">Estamos analizando tu información en tiempo real</p>
+    </div>
+
+    <div class="steps-container">
+      @for (step of steps(); track step.id) {
+        <div class="step-item" [class.pending]="step.status === 'pending'" 
+             [class.processing]="step.status === 'processing'" 
+             [class.completed]="step.status === 'completed'">
+          <div class="step-icon">
+            @if (step.status === 'pending') {
+              <div class="icon-pending"></div>
+            }
+            @if (step.status === 'processing') {
+              <div class="icon-processing">
+                <div class="spinner"></div>
+              </div>
+            }
+            @if (step.status === 'completed') {
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            }
+          </div>
+          <div class="step-label">{{ step.label }}</div>
+        </div>
+      }
+    </div>
+
+    <div class="processing-animation">
+      <div class="wave wave-1"></div>
+      <div class="wave wave-2"></div>
+      <div class="wave wave-3"></div>
+    </div>
+
+    <div class="progress-indicator">
+      <div class="progress-circle">
+        <svg class="progress-ring" width="120" height="120">
+          <circle
+            class="progress-ring-bg"
+            stroke="#e0e0e0"
+            stroke-width="8"
+            fill="transparent"
+            r="52"
+            cx="60"
+            cy="60"
+          />
+          <circle
+            class="progress-ring-fill"
+            stroke="url(#gradient)"
+            stroke-width="8"
+            fill="transparent"
+            r="52"
+            cx="60"
+            cy="60"
+            [style.stroke-dasharray]="326.7"
+            [style.stroke-dashoffset]="326.7 - (326.7 * getProgress()) / 100"
+          />
+          <defs>
+            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="progress-text">{{ getProgress() | number:'1.0-0' }}%</div>
+      </div>
+    </div>
+
+    @if (isComplete()) {
+      <div class="success-message">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" stroke="#10b981" stroke-width="2" fill="none"/>
+          <path d="M8 12L11 15L16 9" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <p>¡Procesamiento completado!</p>
+      </div>
+    }
+  </div>
+</div>

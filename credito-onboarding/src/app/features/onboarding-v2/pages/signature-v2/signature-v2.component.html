@@ -1,0 +1,204 @@
+<div class="signature-container">
+  <div class="signature-content">
+    <!-- Logo -->
+    <div class="logo-header">
+      <img src="assets/logo_resuelve.png" alt="Resuelve Logo" class="logo">
+    </div>
+
+    <!-- Progress -->
+    <div class="progress-section">
+      <div class="progress-text">Paso 5 de 6</div>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: 83.33%"></div>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <div class="signature-header">
+      <h1>Firma digital y activación</h1>
+      <p class="subtitle">Confirma tu identidad para activar tu línea de crédito</p>
+    </div>
+
+    <!-- Credit Summary -->
+    <div class="credit-summary">
+      <div class="summary-header">
+        <h3>Resumen de tu crédito</h3>
+      </div>
+      <div class="summary-details">
+        <div class="summary-item">
+          <span class="label">Línea de crédito aprobada</span>
+          <span class="value">{{ formatCurrency(creditOffer?.approvedAmount || 0) }}</span>
+        </div>
+        <div class="summary-item">
+          <span class="label">Cuota mensual estimada</span>
+          <span class="value">{{ formatCurrency(creditOffer?.monthlyPayment || 0) }}</span>
+        </div>
+        <div class="summary-item">
+          <span class="label">Tasa de interés</span>
+          <span class="value">{{ creditOffer?.interestRate || 0 }}% E.A.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- OTP Method Selection -->
+    <div class="otp-method-section">
+      <h3>Método de firma</h3>
+      <p class="method-description">Selecciona cómo deseas recibir tu código de verificación</p>
+      
+      <div class="method-options">
+        <button 
+          type="button"
+          class="method-option"
+          [class.selected]="otpMethod() === 'sms'"
+          (click)="selectOTPMethod('sms')"
+          [disabled]="isProcessing()">
+          <div class="option-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M15 7L21 7L21 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="option-content">
+            <div class="option-title">Código OTP por SMS</div>
+            <div class="option-subtitle">
+              {{ personalData?.phone ? 'Enviar a ' + personalData?.phone : 'Enviar a tu teléfono' }}
+            </div>
+          </div>
+          <div class="option-radio">
+            <span class="radio-dot"></span>
+          </div>
+        </button>
+
+        <button 
+          type="button"
+          class="method-option"
+          [class.selected]="otpMethod() === 'email'"
+          (click)="selectOTPMethod('email')"
+          [disabled]="isProcessing()">
+          <div class="option-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M22 6L12 13L2 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="option-content">
+            <div class="option-title">Código OTP por Email</div>
+            <div class="option-subtitle">
+              {{ personalData?.email ? 'Enviar a ' + personalData?.email : 'Enviar a tu correo' }}
+            </div>
+          </div>
+          <div class="option-radio">
+            <span class="radio-dot"></span>
+          </div>
+        </button>
+      </div>
+
+      <!-- Send OTP Button -->
+      @if (!otpSent()) {
+        <button 
+          type="button"
+          class="btn-send-otp"
+          (click)="sendOTP()"
+          [disabled]="isProcessing()">
+          @if (!isProcessing()) {
+            <span>Enviar código de verificación</span>
+          } @else {
+            <span>
+              <svg class="spinner" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="31.4" stroke-dashoffset="10" opacity="0.3"/>
+              </svg>
+              Enviando...
+            </span>
+          }
+        </button>
+      }
+    </div>
+
+    <!-- OTP Input Form -->
+    @if (otpSent()) {
+      <form [formGroup]="signatureForm" (ngSubmit)="activateCredit()">
+      <div class="otp-input-section">
+        <label for="otp">Código de verificación</label>
+        <input 
+          type="text" 
+          id="otp"
+          formControlName="otp"
+          placeholder="Ingresa el código de 6 dígitos"
+          maxlength="6"
+          [class.error]="signatureForm.get('otp')?.invalid && signatureForm.get('otp')?.touched">
+        
+        <div class="input-hint">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2"/>
+            <path d="M12 16V12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M12 8H12.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <span>Te enviamos un código de 6 dígitos {{ otpMethod() === 'sms' ? 'por SMS' : 'por correo electrónico' }}</span>
+        </div>
+
+        <button 
+          type="button" 
+          class="resend-otp"
+          (click)="resendOTP()"
+          [disabled]="isProcessing()">
+          ¿No recibiste el código? Reenviar
+        </button>
+
+        @if (errorMessage()) {
+          <div class="error-message">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2"/>
+              <path d="M15 9L9 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M9 9L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            {{ errorMessage() }}
+          </div>
+        }
+      </div>
+
+      <!-- Terms Checkbox -->
+      <div class="terms-section">
+        <label class="checkbox-container">
+          <input type="checkbox" formControlName="termsAccepted">
+          <span class="checkmark"></span>
+          <span class="checkbox-label">
+            Acepto los <a href="#" target="_blank">términos y condiciones</a> del contrato de crédito y autorizo la firma digital del mismo
+          </span>
+        </label>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="form-actions">
+        <button 
+          type="button" 
+          class="btn-secondary"
+          (click)="goBack()"
+          [disabled]="isProcessing()">
+          Volver
+        </button>
+        <button 
+          type="submit" 
+          class="btn-primary"
+          [disabled]="signatureForm.invalid || isProcessing()">
+          @if (!isProcessing()) {
+            <span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 11L12 14L22 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M21 12V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Activar línea de crédito
+            </span>
+          } @else {
+            <span>
+              <svg class="spinner" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="31.4" stroke-dashoffset="10" opacity="0.3"/>
+              </svg>
+              Verificando...
+            </span>
+          }
+        </button>
+      </div>
+    </form>
+    }
+  </div>
+</div>

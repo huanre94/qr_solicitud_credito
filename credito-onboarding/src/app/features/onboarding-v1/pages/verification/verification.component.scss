@@ -1,0 +1,304 @@
+@use 'sass:color';
+@use '../../../../../styles/variables' as *;
+@use '../../../../../styles/mixins' as *;
+
+.verification-container {
+  min-height: 100vh;
+  @include flex-center;
+  padding: $spacing-lg;
+  background-color: $bg-light;
+}
+
+.verification-content {
+  max-width: 800px;
+  width: 100%;
+  background-color: $bg-primary;
+  border-radius: $border-radius-xl;
+  padding: $spacing-xxl;
+  box-shadow: $shadow-lg;
+  
+  @include respond-to('xs') {
+    padding: $spacing-lg;
+  }
+}
+
+.logo-header {
+  text-align: center;
+  margin-bottom: $spacing-lg;
+  
+  .logo {
+    max-width: 150px;
+    height: auto;
+  }
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background-color: $bg-secondary;
+  border-radius: $border-radius-full;
+  margin-bottom: $spacing-lg;
+  overflow: hidden;
+  
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transition: width $transition-base;
+  }
+}
+
+.step-indicator {
+  text-align: center;
+  color: $text-secondary;
+  font-size: $font-size-sm;
+  margin-bottom: $spacing-xl;
+}
+
+.success-icon {
+  text-align: center;
+  margin-bottom: $spacing-lg;
+  animation: scaleIn 0.5s ease-out;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: $spacing-xxl;
+  
+  h1 {
+    color: $text-primary;
+    margin-bottom: $spacing-sm;
+    font-size: $font-size-2xl;
+  }
+  
+  .subtitle {
+    color: $text-secondary;
+    font-size: $font-size-lg;
+  }
+}
+
+.application-card {
+  background: linear-gradient(135deg, rgba(#667eea, 0.1) 0%, rgba(#764ba2, 0.1) 100%);
+  border: 2px solid rgba(#667eea, 0.3);
+  border-radius: $border-radius-lg;
+  padding: $spacing-xl;
+  margin-bottom: $spacing-xxl;
+  
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-lg;
+    padding-bottom: $spacing-md;
+    border-bottom: 1px solid rgba(#667eea, 0.2);
+    
+    .label {
+      color: $text-secondary;
+      font-size: $font-size-sm;
+    }
+    
+    .application-number {
+      color: #667eea;
+      font-weight: $font-weight-bold;
+      font-size: $font-size-xl;
+      font-family: monospace;
+    }
+  }
+  
+  .card-info {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    color: $text-secondary;
+    
+    svg {
+      flex-shrink: 0;
+      color: #667eea;
+    }
+    
+    strong {
+      color: $text-primary;
+    }
+  }
+}
+
+.next-steps-section {
+  margin-bottom: $spacing-xxl;
+  
+  h2 {
+    color: $text-primary;
+    margin-bottom: $spacing-sm;
+  }
+  
+  .section-subtitle {
+    color: $text-secondary;
+    margin-bottom: $spacing-xl;
+  }
+  
+  .steps-list {
+    .step-card {
+      position: relative;
+      display: flex;
+      gap: $spacing-md;
+      background-color: $bg-secondary;
+      border-radius: $border-radius-lg;
+      padding: $spacing-lg;
+      margin-bottom: $spacing-md;
+      transition: all $transition-base;
+      
+      &:hover {
+        background-color: rgba(#667eea, 0.05);
+        transform: translateX(4px);
+      }
+      
+      .step-number {
+        position: absolute;
+        top: $spacing-md;
+        left: $spacing-md;
+        width: 28px;
+        height: 28px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: $font-weight-bold;
+        font-size: $font-size-sm;
+      }
+      
+      .step-icon {
+        flex-shrink: 0;
+        width: 48px;
+        height: 48px;
+        background: linear-gradient(135deg, rgba(#667eea, 0.1) 0%, rgba(#764ba2, 0.1) 100%);
+        border-radius: $border-radius-md;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 24px;
+        
+        svg {
+          color: #667eea;
+        }
+      }
+      
+      .step-content {
+        flex: 1;
+        padding-top: 24px;
+        
+        h3 {
+          color: $text-primary;
+          font-size: $font-size-base;
+          margin-bottom: $spacing-xs;
+        }
+        
+        p {
+          color: $text-secondary;
+          font-size: $font-size-sm;
+          line-height: 1.5;
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+
+.info-box {
+  display: flex;
+  gap: $spacing-md;
+  background-color: rgba(#f59e0b, 0.1);
+  border-left: 4px solid #f59e0b;
+  padding: $spacing-lg;
+  border-radius: $border-radius-md;
+  margin-bottom: $spacing-xxl;
+  
+  svg {
+    flex-shrink: 0;
+    color: #f59e0b;
+  }
+  
+  .info-content {
+    flex: 1;
+    
+    h4 {
+      color: $text-primary;
+      margin-bottom: $spacing-md;
+      font-size: $font-size-base;
+    }
+    
+    ul {
+      margin: 0;
+      padding-left: $spacing-lg;
+      
+      li {
+        color: $text-secondary;
+        font-size: $font-size-sm;
+        line-height: 1.8;
+      }
+    }
+  }
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  margin-bottom: $spacing-xl;
+  
+  .btn-primary {
+    @include button-primary;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: $spacing-md $spacing-xxl;
+    font-size: $font-size-base;
+    
+    &:hover {
+      background: linear-gradient(135deg, color.adjust(#667eea, $lightness: -10%) 0%, color.adjust(#764ba2, $lightness: -10%) 100%);
+    }
+  }
+}
+
+.contact-info {
+  text-align: center;
+  padding-top: $spacing-xl;
+  border-top: 1px solid $border-color;
+  
+  p {
+    color: $text-secondary;
+    margin-bottom: $spacing-md;
+  }
+  
+  .contact-methods {
+    display: flex;
+    justify-content: center;
+    gap: $spacing-xl;
+    flex-wrap: wrap;
+    
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: $spacing-xs;
+      color: #667eea;
+      text-decoration: none;
+      font-weight: $font-weight-medium;
+      transition: all $transition-base;
+      
+      &:hover {
+        color: color.adjust(#667eea, $lightness: -10%);
+      }
+      
+      svg {
+        flex-shrink: 0;
+      }
+    }
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

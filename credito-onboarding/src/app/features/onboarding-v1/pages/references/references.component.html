@@ -1,0 +1,102 @@
+<div class="references-container">
+  <div class="references-content">
+    <div class="logo-header">
+      <img src="assets/logo_resuelve.png" alt="Resuelve Logo" class="logo" />
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress-fill" style="width: 43%"></div>
+    </div>
+
+    <div class="step-indicator">
+      <span class="step-text">Paso 3 de 7</span>
+    </div>
+
+    <div class="form-header">
+      <h1>Referencias Personales</h1>
+      <p class="subtitle">Proporciona 2 contactos de referencia</p>
+    </div>
+
+    <form [formGroup]="referencesForm" (ngSubmit)="onSubmit()" class="references-form">
+      @for (reference of references.controls; track $index) {
+        <div class="reference-card" [formGroup]="getReference($index)">
+          <h3 class="reference-number">Referencia {{ $index + 1 }}</h3>
+          
+          <div class="form-group">
+            <label [for]="'nombre' + $index">Nombre Completo <span class="required">*</span></label>
+            <input 
+              [id]="'nombre' + $index"
+              type="text" 
+              formControlName="nombre"
+              placeholder="Ej: Juan Pérez"
+              [class.error]="getReference($index).get('nombre')?.invalid && getReference($index).get('nombre')?.touched"
+            />
+            @if (getReference($index).get('nombre')?.invalid && getReference($index).get('nombre')?.touched) {
+              <div class="error-message">
+                @if (getReference($index).get('nombre')?.errors?.['required']) {
+                  <span>El nombre es requerido</span>
+                }
+                @if (getReference($index).get('nombre')?.errors?.['minlength']) {
+                  <span>Mínimo 3 caracteres</span>
+                }
+              </div>
+            }
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label [for]="'telefono' + $index">Teléfono <span class="required">*</span></label>
+              <input 
+                [id]="'telefono' + $index"
+                type="tel" 
+                formControlName="telefono"
+                placeholder="Ej: 0991234567"
+                [class.error]="getReference($index).get('telefono')?.invalid && getReference($index).get('telefono')?.touched"
+              />
+              @if (getReference($index).get('telefono')?.invalid && getReference($index).get('telefono')?.touched) {
+                <div class="error-message">
+                  @if (getReference($index).get('telefono')?.errors?.['pattern']) {
+                    <span>Debe ser un número de 7 a 10 dígitos</span>
+                  }
+                </div>
+              }
+            </div>
+
+            <div class="form-group">
+              <label [for]="'relacion' + $index">Relación <span class="required">*</span></label>
+              <select 
+                [id]="'relacion' + $index"
+                formControlName="relacion"
+                [class.error]="getReference($index).get('relacion')?.invalid && getReference($index).get('relacion')?.touched">
+                <option value="">Selecciona...</option>
+                <option value="familiar">Familiar</option>
+                <option value="amigo">Amigo/a</option>
+                <option value="companero">Compañero/a de trabajo</option>
+                <option value="vecino">Vecino/a</option>
+                <option value="otro">Otro</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      }
+
+      <div class="info-note">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="16" x2="12" y2="12"></line>
+          <line x1="12" y1="8" x2="12.01" y2="8"></line>
+        </svg>
+        <p>Las referencias no deben ser familiares directos ni vivir en tu mismo hogar</p>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn-secondary" (click)="goBack()">
+          Volver
+        </button>
+        <button type="submit" class="btn-primary" [disabled]="referencesForm.invalid">
+          Continuar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

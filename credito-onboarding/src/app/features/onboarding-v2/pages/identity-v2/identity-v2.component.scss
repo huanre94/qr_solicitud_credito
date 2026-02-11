@@ -1,0 +1,228 @@
+@use 'sass:color';
+@use '../../../../../styles/variables' as *;
+@use '../../../../../styles/mixins' as *;
+
+.identity-container {
+  min-height: 100vh;
+  @include flex-center;
+  padding: $spacing-lg;
+  background-color: $bg-light;
+  
+  @include respond-to('xs') {
+    padding: $spacing-md;
+  }
+}
+
+.identity-content {
+  max-width: 700px;
+  width: 100%;
+  background-color: $bg-primary;
+  border-radius: $border-radius-xl;
+  padding: $spacing-xxl;
+  box-shadow: $shadow-lg;
+  
+  @include respond-to('xs') {
+    padding: $spacing-lg;
+  }
+}
+
+.logo-header {
+  text-align: center;
+  margin-bottom: $spacing-lg;
+  
+  .logo {
+    max-width: 150px;
+    height: auto;
+    margin: 0 auto;
+    
+    @include respond-to('xs') {
+      max-width: 120px;
+    }
+  }
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: $spacing-xl;
+  
+  h1 {
+    color: $text-primary;
+    margin-bottom: $spacing-sm;
+    
+    @include respond-to('xs') {
+      font-size: $font-size-xl;
+    }
+  }
+  
+  .subtitle {
+    color: $text-secondary;
+    font-size: $font-size-base;
+    margin-bottom: 0;
+  }
+}
+
+.identity-form, .consents-form {
+  margin-bottom: $spacing-xl;
+  
+  .form-group {
+    margin-bottom: $spacing-lg;
+    
+    label {
+      display: block;
+      margin-bottom: $spacing-sm;
+      color: $text-primary;
+      font-weight: $font-weight-medium;
+      font-size: $font-size-base;
+      
+      .required {
+        color: $error-color;
+      }
+    }
+    
+    input[type="text"], .form-select {
+      @include input-base;
+      
+      &.error {
+        border-color: $error-color;
+      }
+    }
+    
+    .form-select {
+      cursor: pointer;
+    }
+    
+    .error-message {
+      margin-top: $spacing-sm;
+      color: $error-color;
+      font-size: $font-size-sm;
+      display: flex;
+      align-items: center;
+      gap: $spacing-xs;
+      
+      &::before {
+        content: '⚠';
+        font-size: $font-size-base;
+      }
+    }
+  }
+}
+
+.section-title {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $text-primary;
+  margin-bottom: $spacing-md;
+}
+
+.checkbox-group {
+  margin-bottom: $spacing-md;
+  
+  .checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: $spacing-sm;
+    cursor: pointer;
+    
+    input[type="checkbox"] {
+      margin-top: 2px;
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    
+    .checkbox-text {
+      flex: 1;
+      color: $text-secondary;
+      font-size: $font-size-sm;
+      line-height: 1.5;
+    }
+  }
+}
+
+.kyc-section {
+  margin-bottom: $spacing-xl;
+  padding: $spacing-lg;
+  background-color: $bg-light;
+  border-radius: $border-radius-md;
+  
+  .kyc-buttons {
+    display: flex;
+    gap: $spacing-md;
+    
+    @include respond-to('xs') {
+      flex-direction: column;
+    }
+  }
+  
+  .btn-kyc {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-sm;
+    padding: $spacing-md;
+    background-color: $bg-primary;
+    border: 2px solid #667eea;
+    color: #667eea;
+    border-radius: $border-radius-md;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    transition: all $transition-base;
+    
+    &:hover:not(:disabled) {
+      background-color: rgba(#667eea, 0.1);
+    }
+    
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+  
+  .kyc-success {
+    @include flex-center;
+    flex-direction: column;
+    gap: $spacing-sm;
+    padding: $spacing-lg;
+    
+    svg {
+      width: 48px;
+      height: 48px;
+    }
+    
+    p {
+      color: $success-color;
+      font-weight: $font-weight-semibold;
+      margin: 0;
+    }
+  }
+  
+  .error-message {
+    margin-top: $spacing-md;
+    color: $error-color;
+    font-size: $font-size-sm;
+    text-align: center;
+  }
+}
+
+.form-actions {
+  .btn-primary {
+    @include button-primary;
+    width: 100%;
+    font-size: $font-size-lg;
+    padding: $spacing-md;
+    gap: $spacing-sm;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    
+    &:hover:not(:disabled) {
+      background: linear-gradient(135deg, color.adjust(#667eea, $lightness: -10%) 0%, color.adjust(#764ba2, $lightness: -10%) 100%);
+      transform: translateY(-2px);
+    }
+  }
+}
