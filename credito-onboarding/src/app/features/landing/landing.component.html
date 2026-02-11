@@ -2,10 +2,59 @@
   <div class="landing-content">
     <img src="assets/logo_resuelve.png" alt="Resuelve Logo" class="logo">
     <h1>Bienvenido a la demo de Onboarding</h1>
-    <p>Selecciona la versión que deseas probar:</p>
-    <div class="landing-actions">
-      <button class="btn-v1" (click)="goToV1()">Ver Mockup V1</button>
-      <button class="btn-v2" (click)="goToV2()">Ver Mockup V2</button>
+    <p class="subtitle">Selecciona el proceso que deseas probar:</p>
+
+    <div class="landing-cards">
+      <div class="onboarding-card" (click)="goToV1()">
+        <div class="card-header">
+          <h2>Solicitud Resuelve</h2>
+          <span class="badge">ESCENARIO 1</span>
+        </div>
+        <p class="card-description">Proceso completo de solicitud con recolección de todos los datos del cliente.</p>
+        <ul class="card-features">
+          <li>7 pasos de recolección de datos</li>
+          <li>Validación de identidad y autorizaciones</li>
+          <li>Información laboral, referencias y dirección</li>
+          <li>Procesamiento y verificación final</li>
+        </ul>
+        <div class="card-footer">
+          <span class="process-type">Resuelve Solicitud</span>
+        </div>
+      </div>
+
+      <div class="onboarding-card" (click)="goToV3()">
+        <div class="card-header">
+          <h2>Solicitud Híbrido</h2>
+          <span class="badge badge-hybrid">ESCENARIO 2</span>
+        </div>
+        <p class="card-description">Evaluación temprana de crédito con validación previa mediante buró de crédito.</p>
+        <ul class="card-features">
+          <li>Evaluación inmediata después de cédula</li>
+          <li>Muestra cuota máxima disponible</li>
+          <li>Decisión de continuar o no</li>
+          <li>Menos pasos si el usuario califica</li>
+        </ul>
+        <div class="card-footer">
+          <span class="process-type">Proceso Híbrido</span>
+        </div>
+      </div>
+
+      <div class="onboarding-card" (click)="goToV2()">
+        <div class="card-header">
+          <h2>Solicitud Express</h2>
+          <span class="badge badge-express">ESCENARIO 3</span>
+        </div>
+        <p class="card-description">Proceso rápido y simplificado con mínima intervención del usuario.</p>
+        <ul class="card-features">
+          <li>6 pasos optimizados</li>
+          <li>Datos precargados cuando es posible</li>
+          <li>Firma digital y OTP</li>
+          <li>Respuesta inmediata de cuota disponible</li>
+        </ul>
+        <div class="card-footer">
+          <span class="process-type">Solicitud Express</span>
+        </div>
+      </div>
     </div>
   </div>
 </div>

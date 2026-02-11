@@ -1,0 +1,281 @@
+@use 'sass:color';
+@use '../../../../../styles/variables' as *;
+@use '../../../../../styles/mixins' as *;
+
+.early-offer-container {
+  min-height: 100vh;
+  @include flex-center;
+  padding: $spacing-lg;
+  background: linear-gradient(135deg, rgba(#10b981, 0.05) 0%, rgba(#059669, 0.05) 100%);
+}
+
+.early-offer-content {
+  max-width: 700px;
+  width: 100%;
+  background-color: $bg-primary;
+  border-radius: $border-radius-xl;
+  padding: $spacing-xxl;
+  box-shadow: $shadow-lg;
+  
+  @include respond-to('xs') {
+    padding: $spacing-lg;
+  }
+}
+
+.logo-header {
+  text-align: center;
+  margin-bottom: $spacing-lg;
+  
+  .logo {
+    max-width: 150px;
+    height: auto;
+  }
+}
+
+// Sección de evaluación
+.evaluating-section {
+  text-align: center;
+  padding: $spacing-xxl 0;
+  
+  .spinner-large {
+    width: 80px;
+    height: 80px;
+    border: 6px solid $bg-secondary;
+    border-top-color: #10b981;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto $spacing-xl;
+  }
+  
+  h1 {
+    color: $text-primary;
+    font-size: $font-size-2xl;
+    margin-bottom: $spacing-sm;
+  }
+  
+  .subtitle {
+    color: $text-secondary;
+    font-size: $font-size-base;
+    margin-bottom: $spacing-xxl;
+  }
+}
+
+.evaluation-steps {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+  margin-top: $spacing-xxl;
+}
+
+.eval-step {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  padding: $spacing-lg;
+  background-color: $bg-secondary;
+  border-radius: $border-radius-md;
+  
+  .step-icon {
+    font-size: 2rem;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+  
+  .step-text {
+    color: $text-primary;
+    font-size: $font-size-base;
+  }
+}
+
+// Sección de oferta
+.offer-section {
+  text-align: center;
+  animation: fadeIn 0.5s ease-out;
+  
+  .success-badge {
+    margin-bottom: $spacing-xl;
+    animation: scaleIn 0.5s ease-out;
+  }
+  
+  h1 {
+    color: $text-primary;
+    font-size: $font-size-2xl;
+    margin-bottom: $spacing-sm;
+  }
+  
+  .subtitle {
+    color: $text-secondary;
+    font-size: $font-size-base;
+    margin-bottom: $spacing-xl;
+  }
+}
+
+.offer-card {
+  background: linear-gradient(135deg, rgba(#10b981, 0.1) 0%, rgba(#059669, 0.05) 100%);
+  border: 2px solid #10b981;
+  border-radius: $border-radius-lg;
+  padding: $spacing-xxl;
+  margin-bottom: $spacing-xl;
+  
+  .offer-label {
+    color: $text-secondary;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    margin-bottom: $spacing-sm;
+  }
+  
+  .offer-amount {
+    color: #10b981;
+    font-size: 4rem;
+    font-weight: $font-weight-bold;
+    margin-bottom: $spacing-lg;
+    
+    @include respond-to('xs') {
+      font-size: 3rem;
+    }
+  }
+}
+
+.info-box {
+  display: flex;
+  gap: $spacing-md;
+  padding: $spacing-md;
+  background-color: rgba(#10b981, 0.1);
+  border-radius: $border-radius-md;
+  text-align: left;
+  
+  svg {
+    flex-shrink: 0;
+    color: #10b981;
+    margin-top: 2px;
+  }
+  
+  p {
+    color: $text-secondary;
+    font-size: $font-size-sm;
+    line-height: 1.5;
+    margin: 0;
+  }
+}
+
+.benefits {
+  text-align: left;
+  margin-bottom: $spacing-xl;
+  padding: $spacing-lg;
+  background-color: $bg-secondary;
+  border-radius: $border-radius-lg;
+  
+  h3 {
+    color: $text-primary;
+    font-size: $font-size-lg;
+    margin-bottom: $spacing-md;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+  }
+  
+  li {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    color: $text-primary;
+    font-size: $font-size-base;
+  }
+}
+
+.decision-section {
+  padding-top: $spacing-xl;
+  border-top: 2px solid $border-color;
+  
+  h2 {
+    color: $text-primary;
+    font-size: $font-size-xl;
+    margin-bottom: $spacing-sm;
+  }
+  
+  .decision-subtitle {
+    color: $text-secondary;
+    font-size: $font-size-sm;
+    margin-bottom: $spacing-xl;
+  }
+}
+
+.action-buttons {
+  display: flex;
+  gap: $spacing-md;
+  
+  @include respond-to('xs') {
+    flex-direction: column;
+  }
+  
+  button {
+    flex: 1;
+    padding: $spacing-md $spacing-lg;
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    border-radius: $border-radius-md;
+    cursor: pointer;
+    transition: all $transition-base;
+  }
+  
+  .btn-decline {
+    background-color: transparent;
+    border: 2px solid $border-color;
+    color: $text-primary;
+    
+    &:hover {
+      border-color: #ef4444;
+      color: #ef4444;
+    }
+  }
+  
+  .btn-accept {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    border: none;
+    color: white;
+    
+    &:hover {
+      background: linear-gradient(135deg, color.adjust(#10b981, $lightness: -10%) 0%, color.adjust(#059669, $lightness: -10%) 100%);
+    }
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

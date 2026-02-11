@@ -1,0 +1,127 @@
+<div class="verification-container">
+  <div class="verification-content">
+    <div class="logo-header">
+      <img src="assets/logo_resuelve.png" alt="Resuelve Logo" class="logo" />
+    </div>
+
+    <div class="success-badge">
+      <svg width="120" height="120" viewBox="0 0 120 120">
+        <circle cx="60" cy="60" r="58" fill="#10b981" opacity="0.1"/>
+        <circle cx="60" cy="60" r="50" fill="#10b981"/>
+        <path d="M40 60L52 72L80 44" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <div class="verification-header">
+      <h1>¡Solicitud Enviada Exitosamente!</h1>
+      <p class="subtitle">Tu solicitud ha sido procesada y está en revisión</p>
+    </div>
+
+    <div class="application-card">
+      <div class="card-header">
+        <h2>Número de Solicitud</h2>
+      </div>
+      <div class="application-number">
+        <span class="number-label">Código de Referencia:</span>
+        <span class="number-value">{{ applicationNumber }}</span>
+      </div>
+      <p class="number-note">Guarda este número para consultar el estado de tu solicitud</p>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="icon-wrapper">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+            <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Tiempo Estimado</h3>
+        <p class="highlight">{{ estimatedTime }}</p>
+        <p class="description">Recibirás respuesta por correo electrónico</p>
+      </div>
+
+      <div class="info-card">
+        <div class="icon-wrapper">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Cuota Aprobada</h3>
+        <p class="highlight">{{ monthlyPayment | currency: 'USD' }}/mes</p>
+        <p class="description">Sujeto a verificación final</p>
+      </div>
+    </div>
+
+    <div class="next-steps">
+      <h2 class="section-title">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M9 12h6M9 16h6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Próximos Pasos
+      </h2>
+      <ul class="steps-list">
+        <li>
+          <span class="step-number">1</span>
+          <div class="step-content">
+            <h4>Verificación de Documentos</h4>
+            <p>Nuestro equipo revisará la información proporcionada</p>
+          </div>
+        </li>
+        <li>
+          <span class="step-number">2</span>
+          <div class="step-content">
+            <h4>Contacto de Confirmación</h4>
+            <p>Te contactaremos para confirmar algunos detalles</p>
+          </div>
+        </li>
+        <li>
+          <span class="step-number">3</span>
+          <div class="step-content">
+            <h4>Desembolso</h4>
+            <p>Una vez aprobado, el dinero estará disponible en 24 horas</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="contact-section">
+      <h3>¿Necesitas ayuda?</h3>
+      <div class="contact-methods">
+        <div class="contact-method">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <a href="mailto:{{ supportEmail }}">{{ supportEmail }}</a>
+        </div>
+        <div class="contact-method">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <a href="tel:{{ supportPhone }}">{{ supportPhone }}</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="action-buttons">
+      <button type="button" class="btn-secondary" (click)="downloadDetails()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Descargar Detalles
+      </button>
+      <button type="button" class="btn-primary" (click)="goToHome()">
+        Volver al Inicio
+      </button>
+    </div>
+
+    <div class="disclaimer">
+      <p>
+        <strong>Nota:</strong> Esta aprobación es preliminar. La aprobación final está sujeta a 
+        verificación de documentos y análisis de riesgo. Te contactaremos por correo electrónico 
+        o teléfono dentro de las próximas {{ estimatedTime }}.
+      </p>
+    </div>
+  </div>
+</div>

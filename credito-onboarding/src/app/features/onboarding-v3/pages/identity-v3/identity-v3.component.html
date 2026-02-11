@@ -1,0 +1,120 @@
+<div class="identity-container">
+  <div class="identity-content">
+    <div class="logo-header">
+      <img src="assets/logo_resuelve.png" alt="Resuelve Logo" class="logo" />
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress-fill" style="width: 14%"></div>
+    </div>
+
+    <div class="step-indicator">
+      <span class="step-text">Paso 1 de 5</span>
+    </div>
+
+    <div class="form-header">
+      <h1>Validación de Identidad</h1>
+      <p class="subtitle">Ingresa tu cédula para evaluarte de inmediato</p>
+    </div>
+
+    <form [formGroup]="identityForm" (ngSubmit)="onSubmit()" class="identity-form">
+      <!-- Cédula -->
+      <div class="form-group">
+        <label for="cedula">Número de Cédula <span class="required">*</span></label>
+        <input 
+          type="text" 
+          id="cedula" 
+          formControlName="cedula"
+          placeholder="Ej: 1234567890"
+          [class.error]="cedula?.invalid && cedula?.touched"
+        />
+        @if (cedula?.invalid && cedula?.touched) {
+          <div class="error-message">
+            @if (cedula?.errors?.['required']) {
+              <span>La cédula es requerida</span>
+            }
+            @if (cedula?.errors?.['pattern']) {
+              <span>La cédula debe tener entre 6 y 10 dígitos</span>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Autorizaciones -->
+      <div class="authorizations-section">
+        <h3>Autorizaciones Requeridas</h3>
+        
+        <div class="checkbox-group">
+          <label class="checkbox-label">
+            <input 
+              type="checkbox" 
+              formControlName="autorizacionBuro"
+              [class.error]="autorizacionBuro?.invalid && autorizacionBuro?.touched"
+            />
+            <span class="checkmark"></span>
+            <span class="checkbox-text">
+              Autorizo consultar mi historial en el buró de crédito para evaluar mi solicitud
+            </span>
+          </label>
+        </div>
+
+        <div class="checkbox-group">
+          <label class="checkbox-label">
+            <input 
+              type="checkbox" 
+              formControlName="autorizacionDatos"
+              [class.error]="autorizacionDatos?.invalid && autorizacionDatos?.touched"
+            />
+            <span class="checkmark"></span>
+            <span class="checkbox-text">
+              Acepto el tratamiento de mis datos personales según la política de privacidad
+            </span>
+          </label>
+        </div>
+
+        @if ((autorizacionBuro?.invalid && autorizacionBuro?.touched) || (autorizacionDatos?.invalid && autorizacionDatos?.touched)) {
+          <div class="error-message">
+            <span>Debes aceptar ambas autorizaciones para continuar</span>
+          </div>
+        }
+      </div>
+
+      <!-- CAPTCHA -->
+      <div class="captcha-section">
+        <h3>Verificación de seguridad</h3>
+        <div class="captcha-box">
+          <div class="captcha-challenge">
+            <span class="captcha-text">{{ captchaNum1 }} + {{ captchaNum2 }} = ?</span>
+          </div>
+          <input 
+            type="text" 
+            formControlName="captcha"
+            placeholder="Ingresa el resultado"
+            (input)="verifyCaptcha()"
+            [class.error]="captcha?.invalid && captcha?.touched && !captchaVerified()"
+            [class.success]="captchaVerified()"
+          />
+        </div>
+        @if (captchaVerified()) {
+          <div class="success-message">
+            <span>✓ Verificación exitosa</span>
+          </div>
+        }
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn-secondary" (click)="goBack()">
+          Volver
+        </button>
+        <button type="submit" class="btn-primary" [disabled]="identityForm.invalid || !captchaVerified() || isProcessing()">
+          @if (isProcessing()) {
+            <span class="spinner"></span>
+            <span>Evaluando...</span>
+          } @else {
+            <span>Evaluar Crédito</span>
+          }
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

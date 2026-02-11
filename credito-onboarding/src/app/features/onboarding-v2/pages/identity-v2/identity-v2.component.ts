@@ -69,7 +69,7 @@ export class IdentityV2Component implements OnInit {
     );
     
     this.onboardingService.nextStep();
-    this.router.navigate(['/onboarding-v2/personal-data']);
+    this.router.navigate(['/onboarding-v2/early-offer']);
   }
 
   private markFormsAsTouched(): void {

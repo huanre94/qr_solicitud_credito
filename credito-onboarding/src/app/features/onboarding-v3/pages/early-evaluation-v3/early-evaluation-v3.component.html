@@ -1,0 +1,119 @@
+<div class="evaluation-container">
+  <div class="evaluation-content">
+    <div class="logo-header">
+      <img src="assets/logo_resuelve.png" alt="Resuelve Logo" class="logo" />
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress-fill" style="width: 40%"></div>
+    </div>
+
+    <div class="step-indicator">
+      <span class="step-text">Paso 2 de 5</span>
+    </div>
+
+    @if (isEvaluating()) {
+      <div class="evaluating-section">
+        <div class="spinner-large"></div>
+        <h2>Evaluando tu crédito...</h2>
+        <p class="evaluating-text">Estamos consultando el buró de crédito y analizando tu perfil</p>
+        
+        <div class="evaluation-steps">
+          <div class="eval-step">
+            <div class="step-icon">⏳</div>
+            <span>Validando identidad</span>
+          </div>
+          <div class="eval-step">
+            <div class="step-icon">📊</div>
+            <span>Consultando buró de crédito</span>
+          </div>
+          <div class="eval-step">
+            <div class="step-icon">💳</div>
+            <span>Calculando tu cuota disponible</span>
+          </div>
+        </div>
+      </div>
+    }
+
+    @if (showOffer()) {
+      <div class="offer-section">
+        <div class="success-badge">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="10" stroke="#10b981" stroke-width="2" fill="none"/>
+            <path d="M8 12L11 15L16 9" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        
+        <h2>¡Felicidades! Has sido pre-aprobado</h2>
+        <p class="offer-subtitle">Basándonos en tu perfil crediticio, esta es tu oferta:</p>
+
+        <div class="offer-card">
+          <div class="offer-header">
+            <span class="offer-label">Tu Cuota Máxima Mensual</span>
+          </div>
+          <div class="offer-amount">
+            {{ monthlyPayment | currency:'USD':'symbol':'1.2-2' }}
+          </div>
+          <div class="offer-description">
+            Esta es la cuota mensual máxima con la que puedes contar para realizar tus compras.
+          </div>
+        </div>
+
+        <div class="info-box">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+            <path d="M12 16v-4M12 8h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="info-content">
+            <p><strong>¿Qué significa esto?</strong></p>
+            <p>Puedes usar este crédito en nuestra red de comercios afiliados y pagar en cómodas cuotas mensuales de hasta {{ monthlyPayment | currency:'USD':'symbol':'1.2-2' }}.</p>
+          </div>
+        </div>
+
+        <div class="benefits">
+          <h3>Beneficios de continuar:</h3>
+          <ul>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 6L9 17L4 12" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span>Solo faltan algunos datos para finalizar</span>
+            </li>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 6L9 17L4 12" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span>Red de más de 5,000 comercios afiliados</span>
+            </li>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 6L9 17L4 12" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span>Gestión 100% digital, sin papeleo</span>
+            </li>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 6L9 17L4 12" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span>Respuesta de verificación en 24-48 horas</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="decision-section">
+          <h3>¿Deseas continuar con el proceso?</h3>
+          <p class="decision-text">Si aceptas, completaremos algunos datos adicionales para finalizar tu solicitud.</p>
+          
+          <div class="action-buttons">
+            <button class="btn-decline" (click)="decline()">
+              No, gracias
+            </button>
+            <button class="btn-accept" (click)="continueProcess()">
+              Sí, continuar
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>

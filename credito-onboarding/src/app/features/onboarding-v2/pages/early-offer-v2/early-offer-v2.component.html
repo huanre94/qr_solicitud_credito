@@ -1,0 +1,104 @@
+<div class="early-offer-container">
+  <div class="early-offer-content">
+    <div class="logo-header">
+      <img src="assets/logo_resuelve.png" alt="Resuelve Logo" class="logo" />
+    </div>
+
+    <app-progress-indicator [currentStep]="2" [totalSteps]="5"></app-progress-indicator>
+
+    @if (isEvaluating()) {
+      <div class="evaluating-section">
+        <div class="spinner-large"></div>
+        <h1>Evaluando tu perfil</h1>
+        <p class="subtitle">Analizando tu información en tiempo real</p>
+        
+        <div class="evaluation-steps">
+          <div class="eval-step">
+            <span class="step-icon">🔍</span>
+            <span class="step-text">Validando identidad</span>
+          </div>
+          <div class="eval-step">
+            <span class="step-icon">📊</span>
+            <span class="step-text">Consultando buró de crédito</span>
+          </div>
+          <div class="eval-step">
+            <span class="step-icon">💳</span>
+            <span class="step-text">Calculando cuota disponible</span>
+          </div>
+        </div>
+      </div>
+    }
+
+    @if (showOffer()) {
+      <div class="offer-section">
+        <div class="success-badge">
+          <svg width="80" height="80" viewBox="0 0 80 80">
+            <circle cx="40" cy="40" r="38" fill="#10b981" opacity="0.2"/>
+            <circle cx="40" cy="40" r="32" fill="#10b981"/>
+            <path d="M25 40L35 50L55 30" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <h1>¡Tienes crédito disponible!</h1>
+        <p class="subtitle">Basado en tu perfil, podemos ofrecerte:</p>
+
+        <div class="offer-card">
+          <div class="offer-label">Cuota Máxima Mensual</div>
+          <div class="offer-amount">{{ monthlyPayment | currency: 'USD' }}</div>
+          
+          <div class="info-box">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+              <path d="M12 16v-4M12 8h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <p>Esta cuota es la máxima que puedes pagar mensualmente según tu perfil crediticio.</p>
+          </div>
+        </div>
+
+        <div class="benefits">
+          <h3>Beneficios de continuar:</h3>
+          <ul>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M20 6L9 17L4 12" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Proceso 100% digital
+            </li>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M20 6L9 17L4 12" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Sin complicaciones ni trámites presenciales
+            </li>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M20 6L9 17L4 12" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Respuesta inmediata
+            </li>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M20 6L9 17L4 12" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Solo completar datos de contacto
+            </li>
+          </ul>
+        </div>
+
+        <div class="decision-section">
+          <h2>¿Deseas continuar con tu línea de crédito?</h2>
+          <p class="decision-subtitle">Solo te tomará 2 minutos más completar tu solicitud</p>
+          
+          <div class="action-buttons">
+            <button type="button" class="btn-decline" (click)="decline()">
+              No, gracias
+            </button>
+            <button type="button" class="btn-accept" (click)="continueProcess()">
+              Sí, continuar
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>

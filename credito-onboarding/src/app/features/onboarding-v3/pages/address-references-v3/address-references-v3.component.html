@@ -1,0 +1,155 @@
+<div class="combined-container">
+  <div class="combined-content">
+    <div class="logo-header">
+      <img src="assets/logo_resuelve.png" alt="Resuelve Logo" class="logo" />
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress-fill" style="width: 80%"></div>
+    </div>
+
+    <div class="step-indicator">
+      <span class="step-text">Paso 4 de 5</span>
+    </div>
+
+    <div class="form-header">
+      <h1>Dirección y Referencias</h1>
+      <p class="subtitle">Últimos datos para completar tu solicitud</p>
+    </div>
+
+    <form [formGroup]="combinedForm" (ngSubmit)="onSubmit()" class="combined-form">
+      <!-- Sección de Dirección -->
+      <div class="section-card">
+        <h2 class="section-title">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M9 22V12H15V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Dirección de Residencia
+        </h2>
+        
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label for="calle">Calle <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="calle" 
+              formControlName="calle"
+              placeholder="Ej: Av. Principal"
+              [class.error]="calle?.invalid && calle?.touched"
+            />
+            @if (calle?.invalid && calle?.touched && calle?.errors?.['minlength']) {
+              <div class="error-message">
+                <span>Mínimo 5 caracteres</span>
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="numeroCasa">Número <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="numeroCasa" 
+              formControlName="numeroCasa"
+              placeholder="Ej: 123"
+              [class.error]="numeroCasa?.invalid && numeroCasa?.touched"
+            />
+          </div>
+          <div class="form-group">
+            <label for="ciudad">Ciudad <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="ciudad" 
+              formControlName="ciudad"
+              placeholder="Ej: Quito"
+              [class.error]="ciudad?.invalid && ciudad?.touched"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="codigoPostal">Código Postal <span class="required">*</span></label>
+          <input 
+            type="text" 
+            id="codigoPostal" 
+            formControlName="codigoPostal"
+            placeholder="Ej: 170101"
+            [class.error]="codigoPostal?.invalid && codigoPostal?.touched"
+          />
+          @if (codigoPostal?.invalid && codigoPostal?.touched && codigoPostal?.errors?.['pattern']) {
+            <div class="error-message">
+              <span>Debe ser un código de 5 dígitos</span>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Sección de Referencias -->
+      <div class="section-card">
+        <h2 class="section-title">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75M13 7a4 4 0 11-8 0 4 4 0 018 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Referencias Personales
+        </h2>
+        
+        @for (reference of references.controls; track $index) {
+          <div class="reference-card">
+            <h3>Referencia {{ $index + 1 }}</h3>
+            <div [formGroup]="getReference($index)">
+              <div class="form-group">
+                <label [for]="'nombre' + $index">Nombre Completo <span class="required">*</span></label>
+                <input 
+                  [id]="'nombre' + $index"
+                  type="text" 
+                  formControlName="nombre"
+                  placeholder="Ej: Juan Pérez"
+                  [class.error]="getReference($index).get('nombre')?.invalid && getReference($index).get('nombre')?.touched"
+                />
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label [for]="'telefono' + $index">Teléfono <span class="required">*</span></label>
+                  <input 
+                    [id]="'telefono' + $index"
+                    type="tel" 
+                    formControlName="telefono"
+                    placeholder="Ej: 0991234567"
+                    [class.error]="getReference($index).get('telefono')?.invalid && getReference($index).get('telefono')?.touched"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label [for]="'relacion' + $index">Relación <span class="required">*</span></label>
+                  <select 
+                    [id]="'relacion' + $index"
+                    formControlName="relacion"
+                    [class.error]="getReference($index).get('relacion')?.invalid && getReference($index).get('relacion')?.touched">
+                    <option value="">Selecciona...</option>
+                    <option value="familiar">Familiar</option>
+                    <option value="amigo">Amigo/a</option>
+                    <option value="companero">Compañero/a de trabajo</option>
+                    <option value="vecino">Vecino/a</option>
+                    <option value="otro">Otro</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn-secondary" (click)="goBack()">
+          Volver
+        </button>
+        <button type="submit" class="btn-primary" [disabled]="combinedForm.invalid">
+          Continuar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

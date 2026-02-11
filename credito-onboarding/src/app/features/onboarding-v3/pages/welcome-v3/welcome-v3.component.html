@@ -1,0 +1,79 @@
+<div class="welcome-container">
+  <div class="welcome-content">
+    <div class="logo-header">
+      <img src="assets/logo_resuelve.png" alt="Resuelve Logo" class="logo" />
+    </div>
+
+    <div class="welcome-hero">
+      <h1>¡Bienvenido a tu Línea de Crédito!</h1>
+      <p class="hero-subtitle">Proceso Híbrido - Evaluación temprana para tu comodidad</p>
+    </div>
+
+    <div class="process-info">
+      <div class="info-card">
+        <div class="icon-wrapper">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>1. Validación Rápida</h3>
+        <p>Ingresa tu cédula y autorizaciones. Te evaluamos de inmediato con el buró de crédito.</p>
+      </div>
+
+      <div class="info-card">
+        <div class="icon-wrapper">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>2. Conoce tu Cuota</h3>
+        <p>Te mostramos tu cuota máxima disponible antes de continuar. Tú decides si quieres proceder.</p>
+      </div>
+
+      <div class="info-card">
+        <div class="icon-wrapper">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M14 2V8H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>3. Completa tu Solicitud</h3>
+        <p>Solo necesitamos algunos datos adicionales: contacto, dirección y referencias.</p>
+      </div>
+    </div>
+
+    <div class="benefits-section">
+      <h2>¿Por qué elegir este proceso?</h2>
+      <ul class="benefits-list">
+        <li>
+          <span class="check-icon">✓</span>
+          <span>Evaluación inmediata después de validar tu identidad</span>
+        </li>
+        <li>
+          <span class="check-icon">✓</span>
+          <span>Conoces tu crédito disponible antes de completar todo</span>
+        </li>
+        <li>
+          <span class="check-icon">✓</span>
+          <span>Proceso más rápido que la solicitud tradicional</span>
+        </li>
+        <li>
+          <span class="check-icon">✓</span>
+          <span>Tú decides si continuar o no después de ver tu oferta</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="action-section">
+      <button class="btn-secondary" (click)="goBack()">
+        Volver
+      </button>
+      <button class="btn-primary" (click)="startOnboarding()">
+        Comenzar
+      </button>
+    </div>
+  </div>
+</div>

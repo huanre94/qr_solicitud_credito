@@ -50,9 +50,9 @@ export class EvaluationV2Component implements OnInit, OnDestroy {
     // Simular resultado de evaluación exitosa
     this.onboardingService.updateCreditEvaluation({
       status: 'APPROVED',
-      approvedAmount: 5000000,
-      monthlyPayment: 250000,
-      interestRate: 1.5,
+      approvedAmount: 5000,
+      monthlyPayment: 250,
+      interestRate: 0,
       term: 24
     });
 

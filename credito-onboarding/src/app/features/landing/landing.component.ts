@@ -17,4 +17,8 @@ export class LandingComponent {
   goToV2() {
     this.router.navigate(['/onboarding-v2/entry']);
   }
+
+  goToV3() {
+    this.router.navigate(['/onboarding-v3/welcome']);
+  }
 }

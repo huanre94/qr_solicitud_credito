@@ -1,3 +1,4 @@
+@use 'sass:color';
 @use '../../../styles/variables' as *;
 @use '../../../styles/mixins' as *;
 
@@ -5,66 +6,214 @@
   min-height: 100vh;
   @include flex-center;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: $spacing-xl;
+  padding: $spacing-md;
+  
+  @include respond-to('md') {
+    padding: $spacing-xl;
+  }
+  
+  @include respond-to('xs') {
+    padding: $spacing-sm;
+  }
 }
 
 .landing-content {
   background: $bg-primary;
   border-radius: $border-radius-xl;
   box-shadow: $shadow-lg;
-  padding: $spacing-xxl $spacing-xl;
+  padding: $spacing-lg;
   text-align: center;
-  max-width: 400px;
+  max-width: 100%;
   width: 100%;
+  
+  @include respond-to('md') {
+    max-width: 1400px;
+    padding: $spacing-xxl;
+  }
+  
+  @include respond-to('xs') {
+    padding: $spacing-md;
+  }
 }
 
 .logo {
-  max-width: 140px;
-  margin-bottom: $spacing-lg;
+  max-width: 100px;
+  margin-bottom: $spacing-md;
+  
+  @include respond-to('md') {
+    max-width: 140px;
+    margin-bottom: $spacing-lg;
+  }
 }
 
 h1 {
   color: $text-primary;
-  font-size: $font-size-2xl;
-  margin-bottom: $spacing-md;
-}
-
-p {
-  color: $text-secondary;
-  font-size: $font-size-base;
-  margin-bottom: $spacing-xl;
-}
-
-.landing-actions {
-  display: flex;
-  flex-direction: column;
-  gap: $spacing-lg;
-}
-
-.btn-v1, .btn-v2 {
-  padding: $spacing-md;
   font-size: $font-size-lg;
-  border: none;
-  border-radius: $border-radius-md;
-  cursor: pointer;
-  font-weight: $font-weight-semibold;
-  transition: background $transition-base, color $transition-base;
-}
-
-.btn-v1 {
-  background: $bg-secondary;
-  color: $text-primary;
   margin-bottom: $spacing-md;
-  &:hover {
-    background: $bg-dark;
-    color: $text-white;
+  
+  @include respond-to('md') {
+    font-size: $font-size-2xl;
+  }
+  
+  @include respond-to('xs') {
+    font-size: $font-size-base;
   }
 }
 
-.btn-v2 {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: $text-white;
+.subtitle {
+  color: $text-secondary;
+  font-size: $font-size-sm;
+  margin-bottom: $spacing-lg;
+  
+  @include respond-to('md') {
+    font-size: $font-size-lg;
+    margin-bottom: $spacing-xxl;
+  }
+  
+  @include respond-to('xs') {
+    font-size: $font-size-xs;
+    margin-bottom: $spacing-md;
+  }
+}
+
+.landing-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-md;
+  
+  @include respond-to('md') {
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-xl;
+  }
+  
+  @include respond-to('xs') {
+    gap: $spacing-sm;
+  }
+}
+
+.onboarding-card {
+  background: $bg-secondary;
+  border-radius: $border-radius-lg;
+  padding: $spacing-md;
+  text-align: left;
+  cursor: pointer;
+  transition: all $transition-base;
+  border: 2px solid transparent;
+  
+  @include respond-to('md') {
+    padding: $spacing-xl;
+  }
+  
+  @include respond-to('xs') {
+    padding: $spacing-sm;
+  }
+  
   &:hover {
-    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    transform: translateX(4px);
+    box-shadow: $shadow-md;
+    border-color: #667eea;
+    
+    @include respond-to('md') {
+      transform: translateY(-4px);
+    }
+  }
+  
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+    margin-bottom: $spacing-md;
+    
+    @include respond-to('md') {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: $spacing-md;
+    }
+    
+    h2 {
+      color: $text-primary;
+      font-size: $font-size-base;
+      margin: 0;
+      
+      @include respond-to('md') {
+        font-size: $font-size-xl;
+        flex: 1;
+      }
+    }
+    
+    .badge {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: $spacing-xs $spacing-md;
+      border-radius: $border-radius-full;
+      font-size: $font-size-xs;
+      font-weight: $font-weight-semibold;
+      white-space: nowrap;
+      
+      &.badge-hybrid {
+        background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+      }
+      
+      &.badge-express {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      }
+    }
+  }
+  
+  .card-description {
+    color: $text-secondary;
+    font-size: $font-size-sm;
+    line-height: 1.6;
+    margin-bottom: $spacing-md;
+    
+    @include respond-to('md') {
+      font-size: $font-size-base;
+      margin-bottom: $spacing-lg;
+    }
+  }
+  
+  .card-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 $spacing-md 0;
+    
+    @include respond-to('md') {
+      margin-bottom: $spacing-lg;
+    }
+    
+    li {
+      color: $text-primary;
+      font-size: $font-size-xs;
+      padding: $spacing-xs 0;
+      padding-left: $spacing-md;
+      position: relative;
+      
+      @include respond-to('md') {
+        font-size: $font-size-sm;
+        padding: $spacing-sm 0;
+        padding-left: $spacing-lg;
+      }
+      
+      &::before {
+        content: '✓';
+        position: absolute;
+        left: 0;
+        color: #10b981;
+        font-weight: $font-weight-bold;
+      }
+    }
+  }
+  
+  .card-footer {
+    padding-top: $spacing-md;
+    border-top: 1px solid $border-color;
+    
+    .process-type {
+      color: #667eea;
+      font-size: $font-size-sm;
+      font-weight: $font-weight-semibold;
+    }
   }
 }

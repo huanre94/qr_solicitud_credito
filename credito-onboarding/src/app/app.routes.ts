@@ -18,6 +18,10 @@ export const routes: Routes = [
         loadComponent: () => import('./features/onboarding-v2/pages/identity-v2/identity-v2.component').then(m => m.IdentityV2Component)
       },
       {
+        path: 'early-offer',
+        loadComponent: () => import('./features/onboarding-v2/pages/early-offer-v2/early-offer-v2.component').then(m => m.EarlyOfferV2Component)
+      },
+      {
         path: 'personal-data',
         loadComponent: () => import('./features/onboarding-v2/pages/personal-data-v2/personal-data-v2.component').then(m => m.PersonalDataV2Component)
       },
@@ -73,6 +77,40 @@ export const routes: Routes = [
       {
         path: 'verification',
         loadComponent: () => import('./features/onboarding-v1/pages/verification/verification.component').then(m => m.VerificationComponent)
+      }
+    ]
+  },
+  // Onboarding V3 (Hybrid Process - Escenario 2)
+  {
+    path: 'onboarding-v3',
+    children: [
+      {
+        path: 'welcome',
+        loadComponent: () => import('./features/onboarding-v3/pages/welcome-v3/welcome-v3.component').then(m => m.WelcomeV3Component)
+      },
+      {
+        path: 'identity',
+        loadComponent: () => import('./features/onboarding-v3/pages/identity-v3/identity-v3.component').then(m => m.IdentityV3Component)
+      },
+      {
+        path: 'early-evaluation',
+        loadComponent: () => import('./features/onboarding-v3/pages/early-evaluation-v3/early-evaluation-v3.component').then(m => m.EarlyEvaluationV3Component)
+      },
+      {
+        path: 'contact-info',
+        loadComponent: () => import('./features/onboarding-v3/pages/contact-info-v3/contact-info-v3.component').then(m => m.ContactInfoV3Component)
+      },
+      {
+        path: 'address-references',
+        loadComponent: () => import('./features/onboarding-v3/pages/address-references-v3/address-references-v3.component').then(m => m.AddressReferencesV3Component)
+      },
+      {
+        path: 'processing',
+        loadComponent: () => import('./features/onboarding-v3/pages/processing-v3/processing-v3.component').then(m => m.ProcessingV3Component)
+      },
+      {
+        path: 'verification',
+        loadComponent: () => import('./features/onboarding-v3/pages/verification-v3/verification-v3.component').then(m => m.VerificationV3Component)
       }
     ]
   },

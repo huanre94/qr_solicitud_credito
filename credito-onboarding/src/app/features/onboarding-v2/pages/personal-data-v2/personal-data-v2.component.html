@@ -34,7 +34,7 @@
         </span>
       </div>
 
-      <div class="form-group">
+      <!-- <div class="form-group">
         <label for="birthDate">Fecha de nacimiento</label>
         <input 
           type="date" 
@@ -42,7 +42,7 @@
           formControlName="birthDate"
           class="locked-field"
         />
-      </div>
+      </div> -->
 
       <div class="section-header">
         <h3>Contacto</h3>
@@ -55,7 +55,7 @@
             type="tel" 
             id="phone" 
             formControlName="phone"
-            placeholder="3001234567"
+            placeholder="09X-XXX-XXXX"
             [class.error]="phone?.invalid && phone?.touched"
           />
           <div class="error-message" *ngIf="phone?.invalid && phone?.touched">
