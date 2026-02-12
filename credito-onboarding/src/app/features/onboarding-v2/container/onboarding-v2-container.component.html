@@ -1,0 +1,47 @@
+<div class="onboarding-container">
+  <!-- ENTRY STEP -->
+  @if (currentStep() === 'entry') {
+    <app-entry-v2
+      (start)="onEntryStart()"
+    />
+  }
+
+  <!-- IDENTITY STEP -->
+  @if (currentStep() === 'identity') {
+    <app-identity-v2
+      (submitForm)="onIdentitySubmit($event)"
+      (cancel)="cancel()"
+    />
+  }
+
+  <!-- EARLY OFFER STEP -->
+  @if (currentStep() === 'early-offer') {
+    <app-early-offer-v2
+      (accepted)="onEarlyOfferAccepted()"
+      (declined)="onEarlyOfferDeclined()"
+    />
+  }
+
+  <!-- PERSONAL DATA STEP -->
+  @if (currentStep() === 'personal-data') {
+    <app-personal-data-v2
+      (submitForm)="onPersonalDataSubmit($event)"
+      (goBack)="onPersonalDataBack()"
+      (cancel)="cancel()"
+    />
+  }
+
+  <!-- SIGNATURE STEP -->
+  @if (currentStep() === 'signature') {
+    <app-signature-v2
+      (submitForm)="onSignatureSubmit($event)"
+      (goBack)="onSignatureBack()"
+      (cancel)="cancel()"
+    />
+  }
+
+  <!-- SUCCESS STEP -->
+  @if (currentStep() === 'success') {
+    <app-success-v2 />
+  }
+</div>

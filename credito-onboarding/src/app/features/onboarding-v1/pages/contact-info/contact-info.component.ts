@@ -40,6 +40,10 @@ export class ContactInfoComponent {
     this.router.navigate(['/onboarding-v1/employment']);
   }
 
+  cancel() {
+    this.router.navigate(['/']);
+  }
+
   private markFormGroupTouched(formGroup: FormGroup): void {
     Object.keys(formGroup.controls).forEach(key => {
       const control = formGroup.get(key);

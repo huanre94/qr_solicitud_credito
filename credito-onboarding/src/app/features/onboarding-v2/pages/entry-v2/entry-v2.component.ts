@@ -1,7 +1,5 @@
-import { Component, inject } from '@angular/core';
+import { Component, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
-import { OnboardingV2Service } from '../../../../core/onboarding-v2.service';
 
 @Component({
   selector: 'app-entry-v2',
@@ -11,11 +9,10 @@ import { OnboardingV2Service } from '../../../../core/onboarding-v2.service';
   styleUrl: './entry-v2.component.scss'
 })
 export class EntryV2Component {
-  private router = inject(Router);
-  private onboardingService = inject(OnboardingV2Service);
+  // Eventos que emite al componente padre
+  start = output<void>();
 
   startOnboarding(): void {
-    this.onboardingService.startOnboarding();
-    this.router.navigate(['/onboarding-v2/identity']);
+    this.start.emit();
   }
 }

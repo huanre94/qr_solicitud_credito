@@ -101,5 +101,32 @@
         </svg>
       </button>
     </div>
+    <div class="cancel-section">
+      <button type="button" class="btn-link-cancel" (click)="openCancelModal()">
+        Cancelar solicitud
+      </button>
+    </div>
   </div>
 </div>
+
+<!-- Modal de confirmación de cancelación -->
+@if (showCancelModal()) {
+  <div class="modal-overlay" (click)="closeCancelModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>¿Estás seguro de cancelar la solicitud?</h2>
+      </div>
+      <div class="modal-body">
+        <p>Guardaremos tu solicitud por si la quieres continuar en el futuro.</p>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn-secondary" (click)="closeCancelModal()">
+          No, volver
+        </button>
+        <button type="button" class="btn-primary-danger" (click)="confirmCancel()">
+          Sí, cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+}

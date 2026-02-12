@@ -43,6 +43,10 @@ export class AddressComponent {
     this.router.navigate(['/onboarding-v1/identity']);
   }
 
+  cancel() {
+    this.router.navigate(['/']);
+  }
+
   private markFormGroupTouched(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach(key => {
       formGroup.get(key)?.markAsTouched();

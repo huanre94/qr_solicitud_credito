@@ -15,4 +15,8 @@ export class WelcomeComponent {
   startOnboarding(): void {
     this.router.navigate(['/onboarding-v1/identity']);
   }
+
+  cancel(): void {
+    this.router.navigate(['/']);
+  }
 }

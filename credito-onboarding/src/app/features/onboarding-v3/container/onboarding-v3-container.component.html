@@ -1,0 +1,55 @@
+<div class="onboarding-container">
+  <!-- WELCOME STEP -->
+  @if (currentStep() === 'welcome') {
+    <app-welcome-v3
+      (start)="onWelcomeStart()"
+    />
+  }
+
+  <!-- IDENTITY STEP -->
+  @if (currentStep() === 'identity') {
+    <app-identity-v3
+      (submitForm)="onIdentitySubmit($event)"
+      (goBack)="onIdentityBack()"
+      (cancel)="cancel()"
+    />
+  }
+
+  <!-- EARLY EVALUATION STEP -->
+  @if (currentStep() === 'early-evaluation') {
+    <app-early-evaluation-v3
+      (accepted)="onEarlyEvaluationAccepted($event)"
+      (declined)="onEarlyEvaluationDeclined()"
+    />
+  }
+
+  <!-- CONTACT INFO STEP -->
+  @if (currentStep() === 'contact-info') {
+    <app-contact-info-v3
+      (submitForm)="onContactInfoSubmit($event)"
+      (goBack)="onContactInfoBack()"
+      (cancel)="cancel()"
+    />
+  }
+
+  <!-- ADDRESS REFERENCES STEP -->
+  @if (currentStep() === 'address-references') {
+    <app-address-references-v3
+      (submitForm)="onAddressReferencesSubmit($event)"
+      (goBack)="onAddressReferencesBack()"
+      (cancel)="cancel()"
+    />
+  }
+
+  <!-- PROCESSING STEP -->
+  @if (currentStep() === 'processing') {
+    <app-processing-v3
+      (complete)="onProcessingComplete()"
+    />
+  }
+
+  <!-- VERIFICATION STEP -->
+  @if (currentStep() === 'verification') {
+    <app-verification-v3 />
+  }
+</div>

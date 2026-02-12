@@ -1,6 +1,5 @@
-import { Component, OnInit, signal, inject } from '@angular/core';
+import { Component, OnInit, signal, inject, output } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
-import { Router } from '@angular/router';
 import { OnboardingV2Service } from '../../../../core/onboarding-v2.service';
 import { ProgressIndicatorComponent } from '../../components/progress-indicator/progress-indicator.component';
 
@@ -12,8 +11,11 @@ import { ProgressIndicatorComponent } from '../../components/progress-indicator/
   styleUrl: './early-offer-v2.component.scss'
 })
 export class EarlyOfferV2Component implements OnInit {
-  private router = inject(Router);
   private onboardingService = inject(OnboardingV2Service);
+
+  // Eventos que emite al componente padre
+  accepted = output<void>();
+  declined = output<void>();
 
   isEvaluating = signal(true);
   showOffer = signal(false);
@@ -39,11 +41,11 @@ export class EarlyOfferV2Component implements OnInit {
 
   continueProcess() {
     this.onboardingService.nextStep();
-    this.router.navigate(['/onboarding-v2/personal-data']);
+    this.accepted.emit();
   }
 
   decline() {
-    this.router.navigate(['/']);
+    this.declined.emit();
   }
 
   private delay(ms: number): Promise<void> {

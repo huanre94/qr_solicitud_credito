@@ -1,6 +1,5 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal, output } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-early-evaluation-v3',
@@ -10,7 +9,9 @@ import { Router } from '@angular/router';
   styleUrl: './early-evaluation-v3.component.scss'
 })
 export class EarlyEvaluationV3Component implements OnInit {
-  private router = inject(Router);
+  // Eventos que emite al componente padre
+  accepted = output<any>();
+  declined = output<void>();
 
   isEvaluating = signal(true);
   showOffer = signal(false);
@@ -27,10 +28,10 @@ export class EarlyEvaluationV3Component implements OnInit {
   }
 
   continueProcess() {
-    this.router.navigate(['/onboarding-v3/contact-info']);
+    this.accepted.emit({ monthlyPayment: this.monthlyPayment });
   }
 
-  decline() {
-    this.router.navigate(['/']);
+  onDecline() {
+    this.declined.emit();
   }
 }

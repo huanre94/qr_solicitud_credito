@@ -1,6 +1,5 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-processing-v3',
@@ -10,6 +9,9 @@ import { Router } from '@angular/router';
   styleUrl: './processing-v3.component.scss'
 })
 export class ProcessingV3Component implements OnInit {
+  // Eventos que emite al componente padre
+  complete = output<void>();
+
   currentStep = signal(0);
   isComplete = signal(false);
   
@@ -21,7 +23,7 @@ export class ProcessingV3Component implements OnInit {
     { title: '¡Aprobación exitosa!', subtitle: 'Todo listo', icon: '✅', delay: 1500 }
   ];
 
-  constructor(private router: Router) {}
+  constructor() {}
 
   ngOnInit() {
     this.processSteps();
@@ -34,7 +36,7 @@ export class ProcessingV3Component implements OnInit {
     }
     this.isComplete.set(true);
     await this.delay(1000);
-    this.router.navigate(['/onboarding-v3/verification']);
+    this.complete.emit();
   }
 
   private delay(ms: number): Promise<void> {

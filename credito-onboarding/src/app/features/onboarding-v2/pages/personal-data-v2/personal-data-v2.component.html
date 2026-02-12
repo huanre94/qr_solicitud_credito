@@ -109,7 +109,7 @@
       </div>
 
       <div class="form-actions">
-        <button type="button" class="btn-secondary" (click)="goBack()">
+        <button type="button" class="btn-secondary" (click)="onGoBack()">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
@@ -122,6 +122,33 @@
           </svg>
         </button>
       </div>
+      <div class="cancel-section">
+        <button type="button" class="btn-link-cancel" (click)="openCancelModal()">
+          Cancelar solicitud
+        </button>
+      </div>
     </form>
   </div>
 </div>
+
+<!-- Modal de confirmación de cancelación -->
+@if (showCancelModal()) {
+  <div class="modal-overlay" (click)="closeCancelModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>¿Estás seguro de cancelar la solicitud?</h2>
+      </div>
+      <div class="modal-body">
+        <p>Guardaremos tu solicitud por si la quieres continuar en el futuro.</p>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn-secondary" (click)="closeCancelModal()">
+          No, volver
+        </button>
+        <button type="button" class="btn-primary-danger" (click)="confirmCancel()">
+          Sí, cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+}

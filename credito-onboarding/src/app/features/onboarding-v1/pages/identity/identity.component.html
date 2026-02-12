@@ -96,6 +96,9 @@
 
       <!-- Acciones -->
       <div class="form-actions">
+        <button type="button" class="btn-cancel" (click)="cancel()" [disabled]="isProcessing()">
+          Cancelar
+        </button>
         <button type="button" class="btn-secondary" (click)="goBack()" [disabled]="isProcessing()">
           Volver
         </button>

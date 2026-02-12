@@ -1,7 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { OnboardingV2Service } from '../../../../core/onboarding-v2.service';
 
 @Component({
@@ -12,17 +11,22 @@ import { OnboardingV2Service } from '../../../../core/onboarding-v2.service';
   styleUrl: './signature-v2.component.scss'
 })
 export class SignatureV2Component {
+  private fb = inject(FormBuilder);
+  private onboardingService = inject(OnboardingV2Service);
+
+  // Eventos que emite al componente padre
+  submitForm = output<any>();
+  goBack = output<void>();
+  cancel = output<void>();
+
   signatureForm: FormGroup;
   otpMethod = signal<'sms' | 'email'>('sms');
   otpSent = signal(false);
   isProcessing = signal(false);
   errorMessage = signal<string | null>(null);
+  showCancelModal = signal(false);
 
-  constructor(
-    private fb: FormBuilder,
-    private router: Router,
-    private onboardingService: OnboardingV2Service
-  ) {
+  constructor() {
     this.signatureForm = this.fb.group({
       otp: ['', [Validators.required, Validators.pattern(/^\d{6}$/)]],
       termsAccepted: [false, Validators.requiredTrue]
@@ -76,8 +80,8 @@ export class SignatureV2Component {
       
       // Simular validación (en producción sería contra backend)
       if (otpValue === '123456') {
-        // OTP correcto - actualizar estado y navegar a éxito
-        this.onboardingService.updateDigitalSignature({
+        // OTP correcto - emitir evento al padre
+        this.submitForm.emit({
           signatureMethod: this.otpMethod(),
           signedAt: new Date(),
           contractAccepted: true,
@@ -85,7 +89,6 @@ export class SignatureV2Component {
         });
         
         this.isProcessing.set(false);
-        this.router.navigate(['/onboarding-v2/success']);
       } else {
         // OTP incorrecto
         this.isProcessing.set(false);
@@ -94,8 +97,21 @@ export class SignatureV2Component {
     }, 2000);
   }
 
-  goBack() {
-    this.router.navigate(['/onboarding-v2/offer']);
+  onGoBack() {
+    this.goBack.emit();
+  }
+
+  openCancelModal(): void {
+    this.showCancelModal.set(true);
+  }
+
+  closeCancelModal(): void {
+    this.showCancelModal.set(false);
+  }
+
+  confirmCancel(): void {
+    this.showCancelModal.set(false);
+    this.cancel.emit();
   }
 
   formatCurrency(amount: number): string {

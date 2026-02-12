@@ -456,3 +456,133 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.cancel-section {
+  text-align: center;
+  margin-top: $spacing-md;
+
+  .btn-link-cancel {
+    background: none;
+    border: none;
+    color: $text-secondary;
+    font-size: $font-size-sm;
+    cursor: pointer;
+    text-decoration: underline;
+    transition: color $transition-base;
+    padding: $spacing-sm;
+
+    &:hover {
+      color: #ef4444;
+    }
+  }
+}
+
+// Modal styles
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: $spacing-lg;
+  backdrop-filter: blur(2px);
+}
+
+.modal-content {
+  background-color: $bg-primary;
+  border-radius: $border-radius-xl;
+  padding: $spacing-xxl;
+  max-width: 480px;
+  width: 100%;
+  box-shadow: $shadow-xl;
+  animation: modalSlideIn 0.3s ease-out;
+
+  @include respond-to('xs') {
+    padding: $spacing-lg;
+  }
+}
+
+.modal-header {
+  margin-bottom: $spacing-lg;
+
+  h2 {
+    color: $text-primary;
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    margin: 0;
+    text-align: center;
+  }
+}
+
+.modal-body {
+  margin-bottom: $spacing-xl;
+
+  p {
+    color: $text-secondary;
+    font-size: $font-size-base;
+    line-height: 1.6;
+    margin: 0;
+    text-align: center;
+  }
+}
+
+.modal-actions {
+  display: flex;
+  gap: $spacing-md;
+  justify-content: center;
+
+  @include respond-to('xs') {
+    flex-direction: column;
+  }
+
+  button {
+    flex: 1;
+    padding: $spacing-md $spacing-lg;
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    border-radius: $border-radius-md;
+    cursor: pointer;
+    transition: all $transition-base;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-secondary {
+    background-color: transparent;
+    border: 2px solid $border-color;
+    color: $text-primary;
+
+    &:hover {
+      border-color: #667eea;
+      background-color: rgba(#667eea, 0.05);
+    }
+  }
+
+  .btn-primary-danger {
+    background-color: #ef4444;
+    border: 2px solid #ef4444;
+    color: white;
+
+    &:hover {
+      background-color: #dc2626;
+      border-color: #dc2626;
+    }
+  }
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

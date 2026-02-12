@@ -1,6 +1,5 @@
-import { Component, inject } from '@angular/core';
+import { Component, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-welcome-v3',
@@ -10,13 +9,10 @@ import { Router } from '@angular/router';
   styleUrl: './welcome-v3.component.scss'
 })
 export class WelcomeV3Component {
-  private router = inject(Router);
+  // Eventos que emite al componente padre
+  start = output<void>();
 
   startOnboarding(): void {
-    this.router.navigate(['/onboarding-v3/identity']);
-  }
-
-  goBack(): void {
-    this.router.navigate(['/']);
+    this.start.emit();
   }
 }

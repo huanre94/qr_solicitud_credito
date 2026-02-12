@@ -1,7 +1,6 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-identity-v3',
@@ -12,11 +11,16 @@ import { Router } from '@angular/router';
 })
 export class IdentityV3Component {
   private fb = inject(FormBuilder);
-  private router = inject(Router);
+
+  // Eventos que emite al componente padre
+  submitForm = output<any>();
+  goBack = output<void>();
+  cancel = output<void>();
 
   identityForm: FormGroup;
   captchaVerified = signal(false);
   isProcessing = signal(false);
+  showCancelModal = signal(false);
   
   // CAPTCHA dinámico
   captchaNum1: number;
@@ -53,16 +57,28 @@ export class IdentityV3Component {
       // Simular validación y consulta al buró
       setTimeout(() => {
         this.isProcessing.set(false);
-        // Ir directo a la evaluación temprana
-        this.router.navigate(['/onboarding-v3/early-evaluation']);
+        this.submitForm.emit(this.identityForm.value);
       }, 2000);
     } else {
       this.markFormGroupTouched(this.identityForm);
     }
   }
 
-  goBack() {
-    this.router.navigate(['/onboarding-v3/welcome']);
+  onGoBack() {
+    this.goBack.emit();
+  }
+
+  openCancelModal(): void {
+    this.showCancelModal.set(true);
+  }
+
+  closeCancelModal(): void {
+    this.showCancelModal.set(false);
+  }
+
+  confirmCancel(): void {
+    this.showCancelModal.set(false);
+    this.cancel.emit();
   }
 
   private markFormGroupTouched(formGroup: FormGroup) {

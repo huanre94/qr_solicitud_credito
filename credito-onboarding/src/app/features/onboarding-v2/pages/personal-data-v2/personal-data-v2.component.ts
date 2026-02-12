@@ -1,8 +1,6 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-import { OnboardingV2Service } from '../../../../core/onboarding-v2.service';
 import { ProgressIndicatorComponent } from '../../components/progress-indicator/progress-indicator.component';
 
 @Component({
@@ -14,10 +12,14 @@ import { ProgressIndicatorComponent } from '../../components/progress-indicator/
 })
 export class PersonalDataV2Component implements OnInit {
   private fb = inject(FormBuilder);
-  private router = inject(Router);
-  private onboardingService = inject(OnboardingV2Service);
+
+  // Eventos que emite al componente padre
+  submitForm = output<any>();
+  goBack = output<void>();
+  cancel = output<void>();
 
   personalDataForm!: FormGroup;
+  showCancelModal = signal(false);
 
   ngOnInit(): void {
     // Simular datos prellenados de fuentes externas
@@ -42,14 +44,24 @@ export class PersonalDataV2Component implements OnInit {
       ...this.personalDataForm.getRawValue() // getRawValue incluye campos disabled
     };
 
-    this.onboardingService.updatePersonalData(formValue);
-    this.onboardingService.nextStep();
-    this.router.navigate(['/onboarding-v2/evaluation']);
+    this.submitForm.emit(formValue);
   }
 
-  goBack(): void {
-    this.onboardingService.previousStep();
-    this.router.navigate(['/onboarding-v2/identity']);
+  onGoBack(): void {
+    this.goBack.emit();
+  }
+
+  openCancelModal(): void {
+    this.showCancelModal.set(true);
+  }
+
+  closeCancelModal(): void {
+    this.showCancelModal.set(false);
+  }
+
+  confirmCancel(): void {
+    this.showCancelModal.set(false);
+    this.cancel.emit();
   }
 
   private markFormAsTouched(): void {

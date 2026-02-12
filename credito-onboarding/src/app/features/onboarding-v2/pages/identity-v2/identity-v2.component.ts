@@ -1,8 +1,6 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-import { OnboardingV2Service } from '../../../../core/onboarding-v2.service';
 import { ProgressIndicatorComponent } from '../../components/progress-indicator/progress-indicator.component';
 
 @Component({
@@ -14,14 +12,17 @@ import { ProgressIndicatorComponent } from '../../components/progress-indicator/
 })
 export class IdentityV2Component implements OnInit {
   private fb = inject(FormBuilder);
-  private router = inject(Router);
-  private onboardingService = inject(OnboardingV2Service);
+
+  // Eventos que emite al componente padre
+  submitForm = output<{ identity: any; consents: any; kyc: any }>();
+  cancel = output<void>();
 
   identityForm!: FormGroup;
   consentsForm!: FormGroup;
   kycStatus: 'PENDING' | 'SUCCESS' | 'FAILED' = 'PENDING';
   isLoading = false;
   errorMessage = '';
+  showCancelModal = signal(false);
 
   documentTypes = [
     { value: 'CC', label: 'Cédula de Ciudadanía' },
@@ -53,6 +54,19 @@ export class IdentityV2Component implements OnInit {
     this.isLoading = false;
   }
 
+  openCancelModal(): void {
+    this.showCancelModal.set(true);
+  }
+
+  closeCancelModal(): void {
+    this.showCancelModal.set(false);
+  }
+
+  confirmCancel(): void {
+    this.showCancelModal.set(false);
+    this.cancel.emit();
+  }
+
   onSubmit(): void {
     if (this.identityForm.invalid || this.consentsForm.invalid || this.kycStatus !== 'SUCCESS') {
       this.markFormsAsTouched();
@@ -62,14 +76,12 @@ export class IdentityV2Component implements OnInit {
       return;
     }
 
-    this.onboardingService.updateIdentity(
-      this.identityForm.value,
-      this.consentsForm.value,
-      { verificationStatus: this.kycStatus }
-    );
-    
-    this.onboardingService.nextStep();
-    this.router.navigate(['/onboarding-v2/early-offer']);
+    // Emitir evento al padre con los datos del formulario
+    this.submitForm.emit({
+      identity: this.identityForm.value,
+      consents: this.consentsForm.value,
+      kyc: { verificationStatus: this.kycStatus }
+    });
   }
 
   private markFormsAsTouched(): void {

@@ -1,7 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormArray } from '@angular/forms';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-address-references-v3',
@@ -12,9 +11,14 @@ import { Router } from '@angular/router';
 })
 export class AddressReferencesV3Component {
   private fb = inject(FormBuilder);
-  private router = inject(Router);
+
+  // Eventos que emite al componente padre
+  submitForm = output<any>();
+  goBack = output<void>();
+  cancel = output<void>();
 
   combinedForm: FormGroup;
+  showCancelModal = signal(false);
 
   constructor() {
     this.combinedForm = this.fb.group({
@@ -50,15 +54,27 @@ export class AddressReferencesV3Component {
 
   onSubmit() {
     if (this.combinedForm.valid) {
-      console.log('Dirección y Referencias:', this.combinedForm.value);
-      this.router.navigate(['/onboarding-v3/processing']);
+      this.submitForm.emit(this.combinedForm.value);
     } else {
       this.markFormGroupTouched(this.combinedForm);
     }
   }
 
-  goBack() {
-    this.router.navigate(['/onboarding-v3/contact-info']);
+  onGoBack() {
+    this.goBack.emit();
+  }
+
+  openCancelModal(): void {
+    this.showCancelModal.set(true);
+  }
+
+  closeCancelModal(): void {
+    this.showCancelModal.set(false);
+  }
+
+  confirmCancel(): void {
+    this.showCancelModal.set(false);
+    this.cancel.emit();
   }
 
   private markFormGroupTouched(formGroup: FormGroup | FormArray) {

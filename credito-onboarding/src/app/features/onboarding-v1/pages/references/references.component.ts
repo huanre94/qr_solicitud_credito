@@ -54,6 +54,10 @@ export class ReferencesComponent {
     this.router.navigate(['/onboarding-v1/address']);
   }
 
+  cancel() {
+    this.router.navigate(['/']);
+  }
+
   private markFormGroupTouched(formGroup: FormGroup | FormArray) {
     if (formGroup instanceof FormArray) {
       formGroup.controls.forEach(control => {
