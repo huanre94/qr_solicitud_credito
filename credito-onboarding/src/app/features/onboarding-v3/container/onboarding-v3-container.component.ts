@@ -69,7 +69,12 @@ export class OnboardingV3ContainerComponent {
     this.currentStep.set('early-evaluation');
   }
 
-  onIdentityBack(): void {
+  onIdentityBack(partialData: any): void {
+    // Guardar datos parciales antes de retroceder
+    this.formData.update(current => ({
+      ...current,
+      identity: partialData
+    }));
     this.currentStep.set('welcome');
   }
 
@@ -95,7 +100,12 @@ export class OnboardingV3ContainerComponent {
     this.currentStep.set('address-references');
   }
 
-  onContactInfoBack(): void {
+  onContactInfoBack(partialData: any): void {
+    // Guardar datos parciales antes de retroceder
+    this.formData.update(current => ({
+      ...current,
+      contactInfo: partialData
+    }));
     this.currentStep.set('early-evaluation');
   }
 
@@ -108,7 +118,12 @@ export class OnboardingV3ContainerComponent {
     this.currentStep.set('processing');
   }
 
-  onAddressReferencesBack(): void {
+  onAddressReferencesBack(partialData: any): void {
+    // Guardar datos parciales antes de retroceder
+    this.formData.update(current => ({
+      ...current,
+      addressReferences: partialData
+    }));
     this.currentStep.set('contact-info');
   }
 

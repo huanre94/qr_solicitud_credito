@@ -1,4 +1,4 @@
-import { Component, inject, output, signal } from '@angular/core';
+import { Component, inject, output, signal, input, OnInit, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormArray } from '@angular/forms';
 
@@ -9,12 +9,15 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormArray } fr
   templateUrl: './address-references-v3.component.html',
   styleUrl: './address-references-v3.component.scss'
 })
-export class AddressReferencesV3Component {
+export class AddressReferencesV3Component implements OnInit {
   private fb = inject(FormBuilder);
+
+  // Input para recibir datos iniciales
+  initialData = input<any>(null);
 
   // Eventos que emite al componente padre
   submitForm = output<any>();
-  goBack = output<void>();
+  goBack = output<any>();  // Ahora emite los datos parciales
   cancel = output<void>();
 
   combinedForm: FormGroup;
@@ -34,6 +37,35 @@ export class AddressReferencesV3Component {
         this.createReference()
       ])
     });
+
+    // Efecto para restaurar datos cuando cambien
+    effect(() => {
+      const data = this.initialData();
+      if (data) {
+        // Restaurar datos de dirección
+        this.combinedForm.patchValue({
+          calle: data.calle || '',
+          numeroCasa: data.numeroCasa || '',
+          ciudad: data.ciudad || '',
+          codigoPostal: data.codigoPostal || ''
+        });
+
+        // Restaurar referencias si existen
+        if (data.references && Array.isArray(data.references)) {
+          const referencesArray = this.references;
+          referencesArray.clear();
+          data.references.forEach((ref: any) => {
+            const refGroup = this.createReference();
+            refGroup.patchValue(ref);
+            referencesArray.push(refGroup);
+          });
+        }
+      }
+    });
+  }
+
+  ngOnInit(): void {
+    // La restauración se maneja en el effect del constructor
   }
 
   private createReference(): FormGroup {
@@ -61,7 +93,8 @@ export class AddressReferencesV3Component {
   }
 
   onGoBack() {
-    this.goBack.emit();
+    // Emitir datos parciales del formulario
+    this.goBack.emit(this.combinedForm.value);
   }
 
   openCancelModal(): void {

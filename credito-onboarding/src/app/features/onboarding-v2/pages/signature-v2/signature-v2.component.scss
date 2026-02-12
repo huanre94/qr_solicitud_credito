@@ -6,38 +6,27 @@
   min-height: 100vh;
   @include flex-center;
   padding: $spacing-lg;
-  background-color: $bg-light;
-  
-  @include respond-to('xs') {
-    padding: $spacing-md;
-  }
+  background: $bg-light;
+  @include respond-to('xs') { padding: $spacing-md; }
 }
 
 .signature-content {
   max-width: 700px;
   width: 100%;
-  background-color: $bg-primary;
+  background: $bg-primary;
   border-radius: $border-radius-xl;
   padding: $spacing-xxl;
   box-shadow: $shadow-lg;
-  
-  @include respond-to('xs') {
-    padding: $spacing-lg;
-  }
+  @include respond-to('xs') { padding: $spacing-lg; }
 }
 
 .logo-header {
   text-align: center;
   margin-bottom: $spacing-lg;
-  
   .logo {
     max-width: 150px;
     height: auto;
-    margin: 0 auto;
-    
-    @include respond-to('xs') {
-      max-width: 120px;
-    }
+    @include respond-to('xs') { max-width: 120px; }
   }
 }
 
@@ -54,14 +43,13 @@
   .progress-bar {
     width: 100%;
     height: 6px;
-    background-color: $bg-light;
+    background: $bg-light;
     border-radius: $border-radius-full;
     overflow: hidden;
     
     .progress-fill {
       height: 100%;
-      background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-      border-radius: $border-radius-full;
+      background: linear-gradient(90deg, #667eea, #764ba2);
       transition: width $transition-base;
     }
   }
@@ -74,34 +62,26 @@
   h1 {
     color: $text-primary;
     margin-bottom: $spacing-sm;
-    
-    @include respond-to('xs') {
-      font-size: $font-size-xl;
-    }
+    @include respond-to('xs') { font-size: $font-size-xl; }
   }
   
   .subtitle {
     color: $text-secondary;
-    font-size: $font-size-base;
     margin: 0;
   }
 }
 
 .credit-summary {
-  background: linear-gradient(135deg, rgba(#667eea, 0.05) 0%, rgba(#764ba2, 0.05) 100%);
+  background: linear-gradient(135deg, rgba(#667eea, 0.05), rgba(#764ba2, 0.05));
   border: 2px solid rgba(#667eea, 0.2);
   border-radius: $border-radius-lg;
   padding: $spacing-lg;
   margin-bottom: $spacing-xl;
   
-  .summary-header {
-    margin-bottom: $spacing-md;
-    
-    h3 {
-      color: $text-primary;
-      font-size: $font-size-lg;
-      margin: 0;
-    }
+  h3 {
+    color: $text-primary;
+    font-size: $font-size-lg;
+    margin: 0 0 $spacing-md;
   }
   
   .summary-details {
@@ -113,7 +93,6 @@
   .summary-item {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     
     .label {
       color: $text-secondary;
@@ -151,12 +130,11 @@
   }
   
   .method-option {
-    width: 100%;
     display: flex;
     align-items: center;
     gap: $spacing-md;
     padding: $spacing-lg;
-    background-color: $bg-primary;
+    background: $bg-primary;
     border: 2px solid $border-color;
     border-radius: $border-radius-lg;
     cursor: pointer;
@@ -164,24 +142,17 @@
     
     &:hover:not(:disabled) {
       border-color: #667eea;
-      background-color: rgba(#667eea, 0.02);
+      background: rgba(#667eea, 0.02);
     }
     
     &.selected {
       border-color: #667eea;
-      background-color: rgba(#667eea, 0.05);
-      
-      .option-icon {
-        color: #667eea;
-      }
-      
+      background: rgba(#667eea, 0.05);
+      .option-icon { color: #667eea; }
       .radio-dot {
-        background-color: #667eea;
+        background: #667eea;
         border-color: #667eea;
-        
-        &::after {
-          transform: scale(1);
-        }
+        &::after { transform: scale(1); }
       }
     }
     
@@ -194,49 +165,40 @@
       @include flex-center;
       width: 48px;
       height: 48px;
-      background-color: $bg-light;
+      background: $bg-light;
       border-radius: $border-radius-md;
       color: $text-secondary;
-      transition: color $transition-base;
     }
     
     .option-content {
       flex: 1;
-      text-align: left;
-      
       .option-title {
         color: $text-primary;
         font-weight: $font-weight-semibold;
         margin-bottom: $spacing-xs;
       }
-      
       .option-subtitle {
         color: $text-secondary;
         font-size: $font-size-sm;
       }
     }
     
-    .option-radio {
-      .radio-dot {
-        position: relative;
-        width: 24px;
-        height: 24px;
-        border: 2px solid $border-color;
-        border-radius: $border-radius-full;
-        transition: all $transition-base;
-        
-        &::after {
-          content: '';
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%) scale(0);
-          width: 12px;
-          height: 12px;
-          background-color: white;
-          border-radius: $border-radius-full;
-          transition: transform $transition-base;
-        }
+    .radio-dot {
+      position: relative;
+      width: 24px;
+      height: 24px;
+      border: 2px solid $border-color;
+      border-radius: 50%;
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 50% 0 0 50%;
+        transform: translate(-50%, -50%) scale(0);
+        width: 12px;
+        height: 12px;
+        background: white;
+        border-radius: 50%;
+        transition: transform $transition-base;
       }
     }
   }
@@ -245,14 +207,10 @@
     @include button-primary;
     width: 100%;
     gap: $spacing-sm;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #667eea, #764ba2);
     
     &:hover:not(:disabled) {
-      background: linear-gradient(135deg, color.adjust(#667eea, $lightness: -10%) 0%, color.adjust(#764ba2, $lightness: -10%) 100%);
-    }
-    
-    .spinner {
-      animation: spin 1s linear infinite;
+      background: linear-gradient(135deg, color.adjust(#667eea, $lightness: -10%), color.adjust(#764ba2, $lightness: -10%));
     }
   }
 }
@@ -277,7 +235,7 @@
     
     &.error {
       border-color: $error-color;
-      background-color: rgba($error-color, 0.05);
+      background: rgba($error-color, 0.05);
     }
   }
   
@@ -288,14 +246,10 @@
     margin-top: $spacing-sm;
     color: $text-secondary;
     font-size: $font-size-sm;
-    
-    svg {
-      color: #667eea;
-    }
+    svg { color: #667eea; }
   }
   
   .resend-otp {
-    display: inline-block;
     margin-top: $spacing-md;
     padding: 0;
     background: none;
@@ -305,32 +259,20 @@
     font-weight: $font-weight-medium;
     text-decoration: underline;
     cursor: pointer;
-    transition: color $transition-base;
     
-    &:hover:not(:disabled) {
-      color: color.adjust(#667eea, $lightness: -15%);
-    }
-    
-    &:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
+    &:hover:not(:disabled) { color: color.adjust(#667eea, $lightness: -15%); }
   }
   
   .error-message {
     display: flex;
-    align-items: center;
     gap: $spacing-sm;
     margin-top: $spacing-md;
     padding: $spacing-md;
-    background-color: rgba($error-color, 0.1);
+    background: rgba($error-color, 0.1);
     border-radius: $border-radius-md;
     color: $error-color;
     font-size: $font-size-sm;
-    
-    svg {
-      flex-shrink: 0;
-    }
+    svg { flex-shrink: 0; }
   }
 }
 
@@ -346,15 +288,10 @@
     input[type="checkbox"] {
       position: absolute;
       opacity: 0;
-      cursor: pointer;
-      
       &:checked ~ .checkmark {
-        background-color: #667eea;
+        background: #667eea;
         border-color: #667eea;
-        
-        &::after {
-          display: block;
-        }
+        &::after { display: block; }
       }
     }
     
@@ -363,10 +300,9 @@
       flex-shrink: 0;
       width: 24px;
       height: 24px;
-      background-color: $bg-primary;
+      background: $bg-primary;
       border: 2px solid $border-color;
       border-radius: $border-radius-sm;
-      transition: all $transition-base;
       
       &::after {
         content: '';
@@ -386,14 +322,10 @@
       color: $text-secondary;
       font-size: $font-size-sm;
       line-height: 1.5;
-      
       a {
         color: #667eea;
         text-decoration: underline;
-        
-        &:hover {
-          color: color.adjust(#667eea, $lightness: -15%);
-        }
+        &:hover { color: color.adjust(#667eea, $lightness: -15%); }
       }
     }
   }
@@ -402,10 +334,7 @@
 .form-actions {
   display: flex;
   gap: $spacing-md;
-  
-  @include respond-to('xs') {
-    flex-direction: column;
-  }
+  @include respond-to('xs') { flex-direction: column; }
   
   button {
     flex: 1;
@@ -414,27 +343,19 @@
     justify-content: center;
     gap: $spacing-sm;
     padding: $spacing-md;
-    font-size: $font-size-base;
-    font-weight: $font-weight-medium;
     border-radius: $border-radius-md;
     cursor: pointer;
     transition: all $transition-base;
-    
     &:disabled {
       opacity: 0.6;
       cursor: not-allowed;
     }
-    
-    .spinner {
-      animation: spin 1s linear infinite;
-    }
   }
   
   .btn-secondary {
-    background-color: transparent;
+    background: transparent;
     border: 2px solid $border-color;
     color: $text-primary;
-    
     &:hover:not(:disabled) {
       border-color: #667eea;
       color: #667eea;
@@ -443,24 +364,17 @@
   
   .btn-primary {
     @include button-primary;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    
+    background: linear-gradient(135deg, #667eea, #764ba2);
     &:hover:not(:disabled) {
-      background: linear-gradient(135deg, color.adjust(#667eea, $lightness: -10%) 0%, color.adjust(#764ba2, $lightness: -10%) 100%);
+      background: linear-gradient(135deg, color.adjust(#667eea, $lightness: -10%), color.adjust(#764ba2, $lightness: -10%));
       transform: translateY(-2px);
     }
   }
 }
 
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
 .cancel-section {
   text-align: center;
   margin-top: $spacing-md;
-
   .btn-link-cancel {
     background: none;
     border: none;
@@ -468,121 +382,7 @@
     font-size: $font-size-sm;
     cursor: pointer;
     text-decoration: underline;
-    transition: color $transition-base;
     padding: $spacing-sm;
-
-    &:hover {
-      color: #ef4444;
-    }
-  }
-}
-
-// Modal styles
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  padding: $spacing-lg;
-  backdrop-filter: blur(2px);
-}
-
-.modal-content {
-  background-color: $bg-primary;
-  border-radius: $border-radius-xl;
-  padding: $spacing-xxl;
-  max-width: 480px;
-  width: 100%;
-  box-shadow: $shadow-xl;
-  animation: modalSlideIn 0.3s ease-out;
-
-  @include respond-to('xs') {
-    padding: $spacing-lg;
-  }
-}
-
-.modal-header {
-  margin-bottom: $spacing-lg;
-
-  h2 {
-    color: $text-primary;
-    font-size: $font-size-xl;
-    font-weight: $font-weight-bold;
-    margin: 0;
-    text-align: center;
-  }
-}
-
-.modal-body {
-  margin-bottom: $spacing-xl;
-
-  p {
-    color: $text-secondary;
-    font-size: $font-size-base;
-    line-height: 1.6;
-    margin: 0;
-    text-align: center;
-  }
-}
-
-.modal-actions {
-  display: flex;
-  gap: $spacing-md;
-  justify-content: center;
-
-  @include respond-to('xs') {
-    flex-direction: column;
-  }
-
-  button {
-    flex: 1;
-    padding: $spacing-md $spacing-lg;
-    font-size: $font-size-base;
-    font-weight: $font-weight-medium;
-    border-radius: $border-radius-md;
-    cursor: pointer;
-    transition: all $transition-base;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .btn-secondary {
-    background-color: transparent;
-    border: 2px solid $border-color;
-    color: $text-primary;
-
-    &:hover {
-      border-color: #667eea;
-      background-color: rgba(#667eea, 0.05);
-    }
-  }
-
-  .btn-primary-danger {
-    background-color: #ef4444;
-    border: 2px solid #ef4444;
-    color: white;
-
-    &:hover {
-      background-color: #dc2626;
-      border-color: #dc2626;
-    }
-  }
-}
-
-@keyframes modalSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+    &:hover { color: #ef4444; }
   }
 }

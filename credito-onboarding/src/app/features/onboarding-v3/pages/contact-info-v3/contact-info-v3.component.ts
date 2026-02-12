@@ -1,4 +1,4 @@
-import { Component, inject, output, signal } from '@angular/core';
+import { Component, inject, output, signal, input, OnInit, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 
@@ -9,12 +9,15 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
   templateUrl: './contact-info-v3.component.html',
   styleUrl: './contact-info-v3.component.scss'
 })
-export class ContactInfoV3Component {
+export class ContactInfoV3Component implements OnInit {
   private fb = inject(FormBuilder);
+
+  // Input para recibir datos iniciales
+  initialData = input<any>(null);
 
   // Eventos que emite al componente padre
   submitForm = output<any>();
-  goBack = output<void>();
+  goBack = output<any>();  // Ahora emite los datos parciales
   cancel = output<void>();
 
   contactForm: FormGroup;
@@ -23,12 +26,20 @@ export class ContactInfoV3Component {
   constructor() {
     this.contactForm = this.fb.group({
       telefonoCelular: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
-      telefonoFijo: ['', Validators.pattern(/^\d{7,10}$/)],
-      correoElectronico: ['', [Validators.required, Validators.email]],
-      correoAlterno: ['', Validators.email],
-      horarioContacto: ['', Validators.required],
-      preferenciaContacto: ['', Validators.required]
+      correoElectronico: ['', [Validators.required, Validators.email]]
     });
+
+    // Efecto para restaurar datos cuando cambien
+    effect(() => {
+      const data = this.initialData();
+      if (data) {
+        this.contactForm.patchValue(data);
+      }
+    });
+  }
+
+  ngOnInit(): void {
+    // La restauración se maneja en el effect del constructor
   }
 
   onSubmit(): void {
@@ -40,7 +51,8 @@ export class ContactInfoV3Component {
   }
 
   onGoBack(): void {
-    this.goBack.emit();
+    // Emitir datos parciales del formulario
+    this.goBack.emit(this.contactForm.value);
   }
 
   openCancelModal(): void {
@@ -64,9 +76,5 @@ export class ContactInfoV3Component {
   }
 
   get telefonoCelular() { return this.contactForm.get('telefonoCelular'); }
-  get telefonoFijo() { return this.contactForm.get('telefonoFijo'); }
   get correoElectronico() { return this.contactForm.get('correoElectronico'); }
-  get correoAlterno() { return this.contactForm.get('correoAlterno'); }
-  get horarioContacto() { return this.contactForm.get('horarioContacto'); }
-  get preferenciaContacto() { return this.contactForm.get('preferenciaContacto'); }
 }

@@ -1,4 +1,4 @@
-import { Component, inject, signal, output } from '@angular/core';
+import { Component, inject, signal, output, input, OnInit, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 
@@ -9,12 +9,15 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
   templateUrl: './identity-v3.component.html',
   styleUrl: './identity-v3.component.scss'
 })
-export class IdentityV3Component {
+export class IdentityV3Component implements OnInit {
   private fb = inject(FormBuilder);
+
+  // Input para recibir datos iniciales
+  initialData = input<any>(null);
 
   // Eventos que emite al componente padre
   submitForm = output<any>();
-  goBack = output<void>();
+  goBack = output<any>();  // Ahora emite los datos parciales
   cancel = output<void>();
 
   identityForm: FormGroup;
@@ -39,6 +42,22 @@ export class IdentityV3Component {
       autorizacionDatos: [false, Validators.requiredTrue],
       captcha: ['', Validators.required]
     });
+
+    // Efecto para restaurar datos cuando cambien
+    effect(() => {
+      const data = this.initialData();
+      if (data) {
+        this.identityForm.patchValue({
+          cedula: data.cedula || '',
+          autorizacionBuro: data.autorizacionBuro || false,
+          autorizacionDatos: data.autorizacionDatos || false
+        });
+      }
+    });
+  }
+
+  ngOnInit(): void {
+    // La restauración se maneja en el effect del constructor
   }
 
   verifyCaptcha() {
@@ -65,7 +84,8 @@ export class IdentityV3Component {
   }
 
   onGoBack() {
-    this.goBack.emit();
+    // Emitir datos parciales del formulario
+    this.goBack.emit(this.identityForm.value);
   }
 
   openCancelModal(): void {

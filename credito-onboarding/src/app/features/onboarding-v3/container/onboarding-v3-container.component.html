@@ -9,8 +9,9 @@
   <!-- IDENTITY STEP -->
   @if (currentStep() === 'identity') {
     <app-identity-v3
+      [initialData]="formData().identity"
       (submitForm)="onIdentitySubmit($event)"
-      (goBack)="onIdentityBack()"
+      (goBack)="onIdentityBack($event)"
       (cancel)="cancel()"
     />
   }
@@ -26,8 +27,9 @@
   <!-- CONTACT INFO STEP -->
   @if (currentStep() === 'contact-info') {
     <app-contact-info-v3
+      [initialData]="formData().contactInfo"
       (submitForm)="onContactInfoSubmit($event)"
-      (goBack)="onContactInfoBack()"
+      (goBack)="onContactInfoBack($event)"
       (cancel)="cancel()"
     />
   }
@@ -35,8 +37,9 @@
   <!-- ADDRESS REFERENCES STEP -->
   @if (currentStep() === 'address-references') {
     <app-address-references-v3
+      [initialData]="formData().addressReferences"
       (submitForm)="onAddressReferencesSubmit($event)"
-      (goBack)="onAddressReferencesBack()"
+      (goBack)="onAddressReferencesBack($event)"
       (cancel)="cancel()"
     />
   }
